@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.2" method="upgrade">
+	<name>COM_RECIPEMANAGER</name>
+	<creationDate>11th December, 2020</creationDate>
+	<author>Oh Martin</author>
+	<authorEmail>oh.martin@vdm.io</authorEmail>
+	<authorUrl>https://www.vdm.io</authorUrl>
+	<copyright>Copyright (C) 2020. All Rights Reserved</copyright>
+	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<version>1.0.0</version>
+	<description><![CDATA[
+		<h1>Recipe Manager (v.1.0.0)</h1>
+		<div style="clear: both;"></div>
+		<p>Recipe Manager allows you to collect, search, organize, and browse your recipes..</p>
+		<p>Created by <a href="https://www.vdm.io" target="_blank">Oh Martin</a><br /><small>Development started 5th July, 2020</small></p>
+	]]></description>
+
+	<!-- Runs on install; New in Joomla 1.5 -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+
+	<!-- Runs on uninstall; New in Joomla 1.5 -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<!-- Runs on install/uninstall/update; New in Joomla 2.5 -->
+	<scriptfile>script.php</scriptfile>
+
+	<media destination="com_recipemanager" folder="media">
+		<filename>index.html</filename>
+		<folder>js</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+	</media>
+
+	<!-- Update Schema; New in Joomla 2.5 -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql/</schemapath>
+		</schemas>
+	</update>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>router.php</filename>
+		<filename>recipemanager.php</filename>
+		<filename>router.php</filename>
+		<folder>assets</folder>
+		<folder>helpers</folder>
+		<folder>controllers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<folder>layouts</folder>
+	</files>
+
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_recipemanager.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.com_recipemanager.sys.ini</language>
+	</languages>
+
+	<administration>
+		<menu>COM_RECIPEMANAGER_MENU</menu>
+		<submenu>
+			<!-- Instead of link you can specify individual link attributes -->
+			<menu option="com_recipemanager" view="ingredients">COM_RECIPEMANAGER_MENU_INGREDIENTS</menu>
+			<menu option="com_recipemanager" view="recipes">COM_RECIPEMANAGER_MENU_RECIPES</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>recipemanager.php</filename>
+			<filename>README.txt</filename>
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>layouts</folder>
+		</files>
+
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_recipemanager.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_recipemanager.sys.ini</language>
+			<language tag="af-ZA">language/af-ZA/af-ZA.com_recipemanager.ini</language>
+		</languages>
+
+	</administration>
+</extension>

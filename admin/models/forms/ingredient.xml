@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+	addrulepath="/administrator/components/com_recipemanager/models/rules"
+	addfieldpath="/administrator/components/com_recipemanager/models/fields"
+>
+	<fieldset name="details">
+		<!-- [Fields 636] Default Fields. -->
+		<!-- [Fields 638] Id Field. Type: Text (joomla) -->
+		<field
+			name="id"
+			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
+			readonly="true"
+		/>
+		<!-- [Fields 657] Date Created Field. Type: Calendar (joomla) -->
+		<field
+			name="created"
+			type="calendar"
+			label="COM_RECIPEMANAGER_INGREDIENT_CREATED_DATE_LABEL"
+			description="COM_RECIPEMANAGER_INGREDIENT_CREATED_DATE_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+		/>
+		<!-- [Fields 680] User Created Field. Type: User (joomla) -->
+		<field
+			name="created_by"
+			type="user"
+			label="COM_RECIPEMANAGER_INGREDIENT_CREATED_BY_LABEL"
+			description="COM_RECIPEMANAGER_INGREDIENT_CREATED_BY_DESC"
+		/>
+		<!-- [Fields 700] Published Field. Type: List (joomla) -->
+		<field name="published" type="list" label="JSTATUS"
+			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
+			filter="intval" size="1" default="1" >
+			<option value="1">
+				JPUBLISHED</option>
+			<option value="0">
+				JUNPUBLISHED</option>
+			<option value="2">
+				JARCHIVED</option>
+			<option value="-2">
+				JTRASHED</option>
+		</field>
+		<!-- [Fields 727] Date Modified Field. Type: Calendar (joomla) -->
+		<field name="modified" type="calendar" class="readonly"
+			label="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_DATE_LABEL" description="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_DATE_DESC"
+			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+		<!-- [Fields 742] User Modified Field. Type: User (joomla) -->
+		<field name="modified_by" type="user"
+			label="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_BY_LABEL"
+			description="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_BY_DESC"
+			class="readonly"
+			readonly="true"
+			filter="unset"
+		/>
+		<!-- [Fields 764] Access Field. Type: Accesslevel (joomla) -->
+		<field name="access"
+			type="accesslevel"
+			label="JFIELD_ACCESS_LABEL"
+			description="JFIELD_ACCESS_DESC"
+			default="1"
+			required="false"
+		/>
+		<!-- [Fields 783] Ordering Field. Type: Numbers (joomla) -->
+		<field
+			name="ordering"
+			type="number"
+			class="inputbox validate-ordering"
+			label="COM_RECIPEMANAGER_INGREDIENT_ORDERING_LABEL"
+			description=""
+			default="0"
+			size="6"
+			required="false"
+		/>
+		<!-- [Fields 806] Version Field. Type: Text (joomla) -->
+		<field
+			name="version"
+			type="text"
+			class="readonly"
+			label="COM_RECIPEMANAGER_INGREDIENT_VERSION_LABEL"
+			description="COM_RECIPEMANAGER_INGREDIENT_VERSION_DESC"
+			size="6"
+			readonly="true"
+			filter="unset"
+		/>
+		<!-- [Fields 869] Dynamic Fields. -->
+		<!-- [Fields 2057] Name Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="name"
+			label="COM_RECIPEMANAGER_INGREDIENT_NAME_LABEL"
+			size="40"
+			maxlength="150"
+			description="COM_RECIPEMANAGER_INGREDIENT_NAME_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="STRING"
+			message="COM_RECIPEMANAGER_INGREDIENT_NAME_MESSAGE"
+			hint="COM_RECIPEMANAGER_INGREDIENT_NAME_HINT"
+		/>
+		<!-- [Fields 1770] Unit Field. Type: List. (joomla) -->
+		<field
+			type="list"
+			name="unit"
+			label="COM_RECIPEMANAGER_INGREDIENT_UNIT_LABEL"
+			class="list_class"
+			multiple="false"
+			required="true"
+			useglobal="false"
+			default="0">
+			<!-- [Fields 2033] Option Set. -->
+			<option value="0">
+				COM_RECIPEMANAGER_INGREDIENT_TEASPOON</option>
+			<option value=" 1">
+				COM_RECIPEMANAGER_INGREDIENT_DESSERTSPOON</option>
+			<option value=" 2">
+				COM_RECIPEMANAGER_INGREDIENT_TABLESPOON</option>
+			<option value=" 3">
+				COM_RECIPEMANAGER_INGREDIENT_FLUIDOUNCE</option>
+			<option value=" 4">
+				COM_RECIPEMANAGER_INGREDIENT_CUP</option>
+			<option value=" 5">
+				COM_RECIPEMANAGER_INGREDIENT_PINT</option>
+			<option value=" 6">
+				COM_RECIPEMANAGER_INGREDIENT_QUART</option>
+			<option value=" 7">
+				COM_RECIPEMANAGER_INGREDIENT_GALLON</option>
+		</field>
+		<!-- [Fields 2057] Image Field. Type: Media. (joomla) -->
+		<field
+			type="media"
+			name="image"
+			label="COM_RECIPEMANAGER_INGREDIENT_IMAGE_LABEL"
+			directory=""
+		/>
+	</fieldset>
+	
+	<!-- [Interpretation 20425] Access Control Fields. -->
+	<fieldset name="accesscontrol">
+		<!-- [Interpretation 20430] Asset Id Field. Type: Hidden (joomla) -->
+		<field
+			name="asset_id"
+			type="hidden"
+			filter="unset"
+		/>
+		<!-- [Interpretation 20438] Rules Field. Type: Rules (joomla) -->
+		<field
+			name="rules"
+			type="rules"
+			label="Permissions in relation to this ingredient"
+			translate_label="false"
+			filter="rules"
+			validate="rules"
+			class="inputbox"
+			component="com_recipemanager"
+			section="ingredient"
+		/>
+	</fieldset>
+</form>
