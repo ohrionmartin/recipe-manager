@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		ingredient.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -26,7 +26,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Ingredient Controller
  */
-class RecipemanagerControllerIngredient extends JControllerForm
+class Recipe_managerControllerIngredient extends JControllerForm
 {
 	/**
 	 * Current or most recently performed task.
@@ -61,16 +61,16 @@ class RecipemanagerControllerIngredient extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [Interpretation 18945] Get user object.
+		// [Interpretation 18937] Get user object.
 		$user = JFactory::getUser();
-		// [Interpretation 18959] Access check.
-		$access = $user->authorise('ingredient.access', 'com_recipemanager');
+		// [Interpretation 18951] Access check.
+		$access = $user->authorise('ingredient.access', 'com_recipe_manager');
 		if (!$access)
 		{
 			return false;
 		}
 
-		// [Interpretation 18990] In the absense of better information, revert to the component permissions.
+		// [Interpretation 18982] In the absense of better information, revert to the component permissions.
 		return parent::allowAdd($data);
 	}
 
@@ -86,25 +86,25 @@ class RecipemanagerControllerIngredient extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [Interpretation 19199] get user object.
+		// [Interpretation 19191] get user object.
 		$user = JFactory::getUser();
-		// [Interpretation 19202] get record id.
+		// [Interpretation 19194] get record id.
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 
 
 		if ($recordId)
 		{
-			// [Interpretation 19234] The record has been set. Check the record permissions.
-			$permission = $user->authorise('core.edit', 'com_recipemanager.ingredient.' . (int) $recordId);
+			// [Interpretation 19226] The record has been set. Check the record permissions.
+			$permission = $user->authorise('core.edit', 'com_recipe_manager.ingredient.' . (int) $recordId);
 			if (!$permission)
 			{
-				if ($user->authorise('core.edit.own', 'com_recipemanager.ingredient.' . $recordId))
+				if ($user->authorise('core.edit.own', 'com_recipe_manager.ingredient.' . $recordId))
 				{
-					// [Interpretation 19283] Now test the owner is the user.
+					// [Interpretation 19275] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [Interpretation 19289] Need to do a lookup from the model.
+						// [Interpretation 19281] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -114,10 +114,10 @@ class RecipemanagerControllerIngredient extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [Interpretation 19299] If the owner matches 'me' then allow.
+					// [Interpretation 19291] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
-						if ($user->authorise('core.edit.own', 'com_recipemanager'))
+						if ($user->authorise('core.edit.own', 'com_recipe_manager'))
 						{
 							return true;
 						}
@@ -126,7 +126,7 @@ class RecipemanagerControllerIngredient extends JControllerForm
 				return false;
 			}
 		}
-		// [Interpretation 19348] Since there is no permission, revert to the component permissions.
+		// [Interpretation 19340] Since there is no permission, revert to the component permissions.
 		return parent::allowEdit($data, $key);
 	}
 
@@ -179,7 +179,7 @@ class RecipemanagerControllerIngredient extends JControllerForm
 		$model = $this->getModel('Ingredient', '', array());
 
 		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view=ingredients' . $this->getRedirectToListAppend(), false));
+		$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view=ingredients' . $this->getRedirectToListAppend(), false));
 
 		return parent::batch($model);
 	}

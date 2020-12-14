@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		ingredients.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -26,7 +26,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Ingredients Model
  */
-class RecipemanagerModelIngredients extends JModelList
+class Recipe_managerModelIngredients extends JModelList
 {
 	public function __construct($config = array())
 	{
@@ -67,8 +67,15 @@ class RecipemanagerModelIngredients extends JModelList
 			$this->context .= '.' . $layout;
 		}
 
+		// [Interpretation 21133] Check if the form was submitted
+		$formSubmited = $app->input->post->get('form_submited');
+
 		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
-		$this->setState('filter.access', $access);
+		if ($formSubmited)
+		{
+			$access = $app->input->post->get('access');
+			$this->setState('filter.access', $access);
+		}
 
 		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
 		$this->setState('filter.published', $published);
@@ -86,7 +93,11 @@ class RecipemanagerModelIngredients extends JModelList
 		$this->setState('filter.search', $search);
 
 		$name = $this->getUserStateFromRequest($this->context . '.filter.name', 'filter_name');
-		$this->setState('filter.name', $name);
+		if ($formSubmited)
+		{
+			$name = $app->input->post->get('name');
+			$this->setState('filter.name', $name);
+		}
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -99,18 +110,18 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	public function getItems()
 	{
-		// [Interpretation 21363] check in items
+		// [Interpretation 21355] check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [Interpretation 22354] set selection value to a translatable value
-		if (RecipemanagerHelper::checkArray($items))
+		// [Interpretation 22346] set selection value to a translatable value
+		if (Recipe_managerHelper::checkArray($items))
 		{
 			foreach ($items as $nr => &$item)
 			{
-				// [Interpretation 22368] convert unit
+				// [Interpretation 22360] convert unit
 				$item->unit = $this->selectionTranslation($item->unit, 'unit');
 			}
 		}
@@ -127,21 +138,21 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	public function selectionTranslation($value,$name)
 	{
-		// [Interpretation 22408] Array of unit language strings
+		// [Interpretation 22400] Array of unit language strings
 		if ($name === 'unit')
 		{
 			$unitArray = array(
-				0 => 'COM_RECIPEMANAGER_INGREDIENT_TEASPOON',
-				' 1' => 'COM_RECIPEMANAGER_INGREDIENT_DESSERTSPOON',
-				' 2' => 'COM_RECIPEMANAGER_INGREDIENT_TABLESPOON',
-				' 3' => 'COM_RECIPEMANAGER_INGREDIENT_FLUIDOUNCE',
-				' 4' => 'COM_RECIPEMANAGER_INGREDIENT_CUP',
-				' 5' => 'COM_RECIPEMANAGER_INGREDIENT_PINT',
-				' 6' => 'COM_RECIPEMANAGER_INGREDIENT_QUART',
-				' 7' => 'COM_RECIPEMANAGER_INGREDIENT_GALLON'
+				0 => 'COM_RECIPE_MANAGER_INGREDIENT_TEASPOON',
+				' 1' => 'COM_RECIPE_MANAGER_INGREDIENT_DESSERTSPOON',
+				' 2' => 'COM_RECIPE_MANAGER_INGREDIENT_TABLESPOON',
+				' 3' => 'COM_RECIPE_MANAGER_INGREDIENT_FLUIDOUNCE',
+				' 4' => 'COM_RECIPE_MANAGER_INGREDIENT_CUP',
+				' 5' => 'COM_RECIPE_MANAGER_INGREDIENT_PINT',
+				' 6' => 'COM_RECIPE_MANAGER_INGREDIENT_QUART',
+				' 7' => 'COM_RECIPE_MANAGER_INGREDIENT_GALLON'
 			);
-			// [Interpretation 22445] Now check if value is found in this array
-			if (isset($unitArray[$value]) && RecipemanagerHelper::checkString($unitArray[$value]))
+			// [Interpretation 22437] Now check if value is found in this array
+			if (isset($unitArray[$value]) && Recipe_managerHelper::checkString($unitArray[$value]))
 			{
 				return $unitArray[$value];
 			}
@@ -156,19 +167,19 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [Interpretation 15534] Get the user object.
+		// [Interpretation 15526] Get the user object.
 		$user = JFactory::getUser();
-		// [Interpretation 15536] Create a new query object.
+		// [Interpretation 15528] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [Interpretation 15541] Select some fields
+		// [Interpretation 15533] Select some fields
 		$query->select('a.*');
 
-		// [Interpretation 15551] From the recipemanager_item table
-		$query->from($db->quoteName('#__recipemanager_ingredient', 'a'));
+		// [Interpretation 15543] From the recipe_manager_item table
+		$query->from($db->quoteName('#__recipe_manager_ingredient', 'a'));
 
-		// [Interpretation 15570] Filter by published state
+		// [Interpretation 15562] Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -179,29 +190,29 @@ class RecipemanagerModelIngredients extends JModelList
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
 
-		// [Interpretation 15590] Join over the asset groups.
+		// [Interpretation 15582] Join over the asset groups.
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-		// [Interpretation 15604] Filter by access level.
+		// [Interpretation 15596] Filter by access level.
 		$_access = $this->getState('filter.access');
 		if ($_access && is_numeric($_access))
 		{
 			$query->where('a.access = ' . (int) $_access);
 		}
-		elseif (RecipemanagerHelper::checkArray($_access))
+		elseif (Recipe_managerHelper::checkArray($_access))
 		{
-			// [Interpretation 15619] Secure the array for the query
+			// [Interpretation 15611] Secure the array for the query
 			$_access = ArrayHelper::toInteger($_access);
-			// [Interpretation 15624] Filter by the Access Array.
+			// [Interpretation 15616] Filter by the Access Array.
 			$query->where('a.access IN (' . implode(',', $_access) . ')');
 		}
-		// [Interpretation 15630] Implement View Level Access
-		if (!$user->authorise('core.options', 'com_recipemanager'))
+		// [Interpretation 15622] Implement View Level Access
+		if (!$user->authorise('core.options', 'com_recipe_manager'))
 		{
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN (' . $groups . ')');
 		}
-		// [Interpretation 15791] Filter by search.
+		// [Interpretation 15783] Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -217,7 +228,7 @@ class RecipemanagerModelIngredients extends JModelList
 		}
 
 
-		// [Interpretation 15738] Add the list ordering clause.
+		// [Interpretation 15730] Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 		if ($orderCol != '')
@@ -238,74 +249,74 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	public function getExportData($pks, $user = null)
 	{
-		// [Interpretation 14988] setup the query
-		if (($pks_size = RecipemanagerHelper::checkArray($pks)) !== false || 'bulk' === $pks)
+		// [Interpretation 14980] setup the query
+		if (($pks_size = Recipe_managerHelper::checkArray($pks)) !== false || 'bulk' === $pks)
 		{
-			// [Interpretation 14995] Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
+			// [Interpretation 14987] Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
 			$_export = true;
-			// [Interpretation 15000] Get the user object if not set.
-			if (!isset($user) || !RecipemanagerHelper::checkObject($user))
+			// [Interpretation 14992] Get the user object if not set.
+			if (!isset($user) || !Recipe_managerHelper::checkObject($user))
 			{
 				$user = JFactory::getUser();
 			}
-			// [Interpretation 15008] Create a new query object.
+			// [Interpretation 15000] Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [Interpretation 15014] Select some fields
+			// [Interpretation 15006] Select some fields
 			$query->select('a.*');
 
-			// [Interpretation 15018] From the recipemanager_ingredient table
-			$query->from($db->quoteName('#__recipemanager_ingredient', 'a'));
-			// [Interpretation 15025] The bulk export path
+			// [Interpretation 15010] From the recipe_manager_ingredient table
+			$query->from($db->quoteName('#__recipe_manager_ingredient', 'a'));
+			// [Interpretation 15017] The bulk export path
 			if ('bulk' === $pks)
 			{
 				$query->where('a.id > 0');
 			}
-			// [Interpretation 15034] A large array of ID's will not work out well
+			// [Interpretation 15026] A large array of ID's will not work out well
 			elseif ($pks_size > 500)
 			{
-				// [Interpretation 15039] Use lowest ID
+				// [Interpretation 15031] Use lowest ID
 				$query->where('a.id >= ' . (int) min($pks));
-				// [Interpretation 15043] Use highest ID
+				// [Interpretation 15035] Use highest ID
 				$query->where('a.id <= ' . (int) max($pks));
 			}
-			// [Interpretation 15049] The normal default path
+			// [Interpretation 15041] The normal default path
 			else
 			{
 				$query->where('a.id IN (' . implode(',',$pks) . ')');
 			}
-			// [Interpretation 15101] Implement View Level Access
-			if (!$user->authorise('core.options', 'com_recipemanager'))
+			// [Interpretation 15093] Implement View Level Access
+			if (!$user->authorise('core.options', 'com_recipe_manager'))
 			{
 				$groups = implode(',', $user->getAuthorisedViewLevels());
 				$query->where('a.access IN (' . $groups . ')');
 			}
 
-			// [Interpretation 15142] Order the results by ordering
+			// [Interpretation 15134] Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [Interpretation 15148] Load the items
+			// [Interpretation 15140] Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [Interpretation 21901] Set values to display correctly.
-				if (RecipemanagerHelper::checkArray($items))
+				// [Interpretation 21893] Set values to display correctly.
+				if (Recipe_managerHelper::checkArray($items))
 				{
 					foreach ($items as $nr => &$item)
 					{
-						// [Interpretation 22043] unset the values we don't want exported.
+						// [Interpretation 22035] unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [Interpretation 22058] Add headers to items array.
+				// [Interpretation 22050] Add headers to items array.
 				$headers = $this->getExImPortHeaders();
-				if (RecipemanagerHelper::checkObject($headers))
+				if (Recipe_managerHelper::checkObject($headers))
 				{
 					array_unshift($items,$headers);
 				}
@@ -325,8 +336,8 @@ class RecipemanagerModelIngredients extends JModelList
 		// Get a db connection.
 		$db = JFactory::getDbo();
 		// get the columns
-		$columns = $db->getTableColumns("#__recipemanager_ingredient");
-		if (RecipemanagerHelper::checkArray($columns))
+		$columns = $db->getTableColumns("#__recipe_manager_ingredient");
+		if (Recipe_managerHelper::checkArray($columns))
 		{
 			// remove the headers you don't import/export.
 			unset($columns['asset_id']);
@@ -350,11 +361,22 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [Interpretation 20600] Compile the store id.
+		// [Interpretation 20592] Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
-		$id .= ':' . $this->getState('filter.access');
+		// [Interpretation 20757] Check if the value is an array
+		$_access = $this->getState('filter.access');
+		if (Recipe_managerHelper::checkArray($_access))
+		{
+			$id .= ':' . implode(':', $_access);
+		}
+		// [Interpretation 20772] Check if this is only an number or string
+		elseif (is_numeric($_access)
+		 || Recipe_managerHelper::checkString($_access))
+		{
+			$id .= ':' . $_access;
+		}
 		$id .= ':' . $this->getState('filter.ordering');
 		$id .= ':' . $this->getState('filter.created_by');
 		$id .= ':' . $this->getState('filter.modified_by');
@@ -371,41 +393,41 @@ class RecipemanagerModelIngredients extends JModelList
 	 */
 	protected function checkInNow()
 	{
-		// [Interpretation 21381] Get set check in time
-		$time = JComponentHelper::getParams('com_recipemanager')->get('check_in');
+		// [Interpretation 21373] Get set check in time
+		$time = JComponentHelper::getParams('com_recipe_manager')->get('check_in');
 
 		if ($time)
 		{
 
-			// [Interpretation 21389] Get a db connection.
+			// [Interpretation 21381] Get a db connection.
 			$db = JFactory::getDbo();
-			// [Interpretation 21392] reset query
+			// [Interpretation 21384] reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
-			$query->from($db->quoteName('#__recipemanager_ingredient'));
+			$query->from($db->quoteName('#__recipe_manager_ingredient'));
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [Interpretation 21403] Get Yesterdays date
+				// [Interpretation 21395] Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [Interpretation 21407] reset query
+				// [Interpretation 21399] reset query
 				$query = $db->getQuery(true);
 
-				// [Interpretation 21411] Fields to update.
+				// [Interpretation 21403] Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [Interpretation 21420] Conditions for which records should be updated.
+				// [Interpretation 21412] Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [Interpretation 21429] Check table
-				$query->update($db->quoteName('#__recipemanager_ingredient'))->set($fields)->where($conditions); 
+				// [Interpretation 21421] Check table
+				$query->update($db->quoteName('#__recipe_manager_ingredient'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);
 

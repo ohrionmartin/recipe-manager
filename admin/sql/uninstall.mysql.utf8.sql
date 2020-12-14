@@ -1,3 +1,3 @@
-DROP TABLE IF EXISTS `#__recipemanager_ingredient`;
-DROP TABLE IF EXISTS `#__recipemanager_recipe`;
+DROP TABLE IF EXISTS `#__recipe_manager_ingredient`;
+DROP TABLE IF EXISTS `#__recipe_manager_recipe`;
 

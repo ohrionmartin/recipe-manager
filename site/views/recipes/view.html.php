@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		view.html.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -22,9 +22,9 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Recipemanager View class for the Recipes
+ * Recipe_manager View class for the Recipes
  */
-class RecipemanagerViewRecipes extends JViewLegacy
+class Recipe_managerViewRecipes extends JViewLegacy
 {
 	// Overwriting JView display method
 	function display($tpl = null)
@@ -65,9 +65,9 @@ class RecipemanagerViewRecipes extends JViewLegacy
 		// [Interpretation 6206] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
 		// [Interpretation 6218] Initialize the header checker.
-		$HeaderCheck = new recipemanagerHeaderCheck;
+		$HeaderCheck = new recipe_managerHeaderCheck;
 		// add the document default css file
-		$this->document->addStyleSheet(JURI::root(true) .'/components/com_recipemanager/assets/css/recipes.css', (RecipemanagerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
+		$this->document->addStyleSheet(JURI::root(true) .'/components/com_recipe_manager/assets/css/recipes.css', (Recipe_managerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 	}
 
 	/**
@@ -77,10 +77,10 @@ class RecipemanagerViewRecipes extends JViewLegacy
 	{
 		
 		// set help url for this view if found
-		$help_url = RecipemanagerHelper::getHelpUrl('recipes');
-		if (RecipemanagerHelper::checkString($help_url))
+		$help_url = Recipe_managerHelper::getHelpUrl('recipes');
+		if (Recipe_managerHelper::checkString($help_url))
 		{
-			JToolbarHelper::help('COM_RECIPEMANAGER_HELP_MANAGER', false, $help_url);
+			JToolbarHelper::help('COM_RECIPE_MANAGER_HELP_MANAGER', false, $help_url);
 		}
 		// now initiate the toolbar
 		$this->toolbar = JToolbar::getInstance();
@@ -96,6 +96,6 @@ class RecipemanagerViewRecipes extends JViewLegacy
 	public function escape($var, $sorten = false, $length = 40)
 	{
 		// use the helper htmlEscape method instead.
-		return RecipemanagerHelper::htmlEscape($var, $this->_charset, $sorten, $length);
+		return Recipe_managerHelper::htmlEscape($var, $this->_charset, $sorten, $length);
 	}
 }

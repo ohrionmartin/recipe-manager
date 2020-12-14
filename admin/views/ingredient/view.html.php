@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		view.html.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Ingredient View class
  */
-class RecipemanagerViewIngredient extends JViewLegacy
+class Recipe_managerViewIngredient extends JViewLegacy
 {
 	/**
 	 * display method of View
@@ -33,14 +33,14 @@ class RecipemanagerViewIngredient extends JViewLegacy
 	public function display($tpl = null)
 	{
 		// set params
-		$this->params = JComponentHelper::getParams('com_recipemanager');
+		$this->params = JComponentHelper::getParams('com_recipe_manager');
 		// Assign the variables
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item');
 		$this->script = $this->get('Script');
 		$this->state = $this->get('State');
 		// get action permissions
-		$this->canDo = RecipemanagerHelper::getActions('ingredient', $this->item);
+		$this->canDo = Recipe_managerHelper::getActions('ingredient', $this->item);
 		// get input
 		$jinput = JFactory::getApplication()->input;
 		$this->ref = $jinput->get('ref', 0, 'word');
@@ -92,28 +92,28 @@ class RecipemanagerViewIngredient extends JViewLegacy
 		$userId	= $user->id;
 		$isNew = $this->item->id == 0;
 
-		JToolbarHelper::title( JText::_($isNew ? 'COM_RECIPEMANAGER_INGREDIENT_NEW' : 'COM_RECIPEMANAGER_INGREDIENT_EDIT'), 'pencil-2 article-add');
-		// [Interpretation 20862] Built the actions for new and existing records.
-		if (RecipemanagerHelper::checkString($this->referral))
+		JToolbarHelper::title( JText::_($isNew ? 'COM_RECIPE_MANAGER_INGREDIENT_NEW' : 'COM_RECIPE_MANAGER_INGREDIENT_EDIT'), 'pencil-2 article-add');
+		// [Interpretation 20854] Built the actions for new and existing records.
+		if (Recipe_managerHelper::checkString($this->referral))
 		{
 			if ($this->canDo->get('core.create') && $isNew)
 			{
-				// [Interpretation 20887] We can create the record.
+				// [Interpretation 20879] We can create the record.
 				JToolBarHelper::save('ingredient.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('core.edit'))
 			{
-				// [Interpretation 20912] We can save the record.
+				// [Interpretation 20904] We can save the record.
 				JToolBarHelper::save('ingredient.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [Interpretation 20919] Do not creat but cancel.
+				// [Interpretation 20911] Do not creat but cancel.
 				JToolBarHelper::cancel('ingredient.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [Interpretation 20926] We can close it.
+				// [Interpretation 20918] We can close it.
 				JToolBarHelper::cancel('ingredient.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -121,7 +121,7 @@ class RecipemanagerViewIngredient extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [Interpretation 20936] For new records, check the create permission.
+				// [Interpretation 20928] For new records, check the create permission.
 				if ($this->canDo->get('core.create'))
 				{
 					JToolBarHelper::apply('ingredient.apply', 'JTOOLBAR_APPLY');
@@ -134,11 +134,11 @@ class RecipemanagerViewIngredient extends JViewLegacy
 			{
 				if ($this->canDo->get('core.edit'))
 				{
-					// [Interpretation 20989] We can save the new record
+					// [Interpretation 20981] We can save the new record
 					JToolBarHelper::apply('ingredient.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('ingredient.save', 'JTOOLBAR_SAVE');
-					// [Interpretation 20995] We can save this record, but check the create permission to see
-					// [Interpretation 20997] if we can return to make a new one.
+					// [Interpretation 20987] We can save this record, but check the create permission to see
+					// [Interpretation 20989] if we can return to make a new one.
 					if ($this->canDo->get('core.create'))
 					{
 						JToolBarHelper::custom('ingredient.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -147,7 +147,7 @@ class RecipemanagerViewIngredient extends JViewLegacy
 				$canVersion = ($this->canDo->get('core.version') && $this->canDo->get('ingredient.version'));
 				if ($this->state->params->get('save_history', 1) && $this->canDo->get('core.edit') && $canVersion)
 				{
-					JToolbarHelper::versions('com_recipemanager.ingredient', $this->item->id);
+					JToolbarHelper::versions('com_recipe_manager.ingredient', $this->item->id);
 				}
 				if ($this->canDo->get('core.create'))
 				{
@@ -157,11 +157,11 @@ class RecipemanagerViewIngredient extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [Interpretation 21102] set help url for this view if found
-		$help_url = RecipemanagerHelper::getHelpUrl('ingredient');
-		if (RecipemanagerHelper::checkString($help_url))
+		// [Interpretation 21094] set help url for this view if found
+		$help_url = Recipe_managerHelper::getHelpUrl('ingredient');
+		if (Recipe_managerHelper::checkString($help_url))
 		{
-			JToolbarHelper::help('COM_RECIPEMANAGER_HELP_MANAGER', false, $help_url);
+			JToolbarHelper::help('COM_RECIPE_MANAGER_HELP_MANAGER', false, $help_url);
 		}
 	}
 
@@ -177,10 +177,10 @@ class RecipemanagerViewIngredient extends JViewLegacy
 		if(strlen($var) > 30)
 		{
     		// use the helper htmlEscape method instead and shorten the string
-			return RecipemanagerHelper::htmlEscape($var, $this->_charset, true, 30);
+			return Recipe_managerHelper::htmlEscape($var, $this->_charset, true, 30);
 		}
 		// use the helper htmlEscape method instead.
-		return RecipemanagerHelper::htmlEscape($var, $this->_charset);
+		return Recipe_managerHelper::htmlEscape($var, $this->_charset);
 	}
 
 	/**
@@ -195,10 +195,10 @@ class RecipemanagerViewIngredient extends JViewLegacy
 		{
 			$this->document = JFactory::getDocument();
 		}
-		$this->document->setTitle(JText::_($isNew ? 'COM_RECIPEMANAGER_INGREDIENT_NEW' : 'COM_RECIPEMANAGER_INGREDIENT_EDIT'));
-		$this->document->addStyleSheet(JURI::root() . "administrator/components/com_recipemanager/assets/css/ingredient.css", (RecipemanagerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
-		$this->document->addScript(JURI::root() . $this->script, (RecipemanagerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
-		$this->document->addScript(JURI::root() . "administrator/components/com_recipemanager/views/ingredient/submitbutton.js", (RecipemanagerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
+		$this->document->setTitle(JText::_($isNew ? 'COM_RECIPE_MANAGER_INGREDIENT_NEW' : 'COM_RECIPE_MANAGER_INGREDIENT_EDIT'));
+		$this->document->addStyleSheet(JURI::root() . "administrator/components/com_recipe_manager/assets/css/ingredient.css", (Recipe_managerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
+		$this->document->addScript(JURI::root() . $this->script, (Recipe_managerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() . "administrator/components/com_recipe_manager/views/ingredient/submitbutton.js", (Recipe_managerHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
 		JText::script('view not acceptable. Error');
 	}
 }

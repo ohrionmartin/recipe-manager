@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form
-	addrulepath="/administrator/components/com_recipemanager/models/rules"
-	addfieldpath="/administrator/components/com_recipemanager/models/fields"
+	addrulepath="/administrator/components/com_recipe_manager/models/rules"
+	addfieldpath="/administrator/components/com_recipe_manager/models/fields"
 >
 	<fieldset name="details">
 		<!-- [Fields 636] Default Fields. -->
@@ -16,8 +16,8 @@
 		<field
 			name="created"
 			type="calendar"
-			label="COM_RECIPEMANAGER_RECIPE_CREATED_DATE_LABEL"
-			description="COM_RECIPEMANAGER_RECIPE_CREATED_DATE_DESC"
+			label="COM_RECIPE_MANAGER_RECIPE_CREATED_DATE_LABEL"
+			description="COM_RECIPE_MANAGER_RECIPE_CREATED_DATE_DESC"
 			size="22"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
@@ -26,8 +26,8 @@
 		<field
 			name="created_by"
 			type="user"
-			label="COM_RECIPEMANAGER_RECIPE_CREATED_BY_LABEL"
-			description="COM_RECIPEMANAGER_RECIPE_CREATED_BY_DESC"
+			label="COM_RECIPE_MANAGER_RECIPE_CREATED_BY_LABEL"
+			description="COM_RECIPE_MANAGER_RECIPE_CREATED_BY_DESC"
 		/>
 		<!-- [Fields 700] Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
@@ -44,12 +44,12 @@
 		</field>
 		<!-- [Fields 727] Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
-			label="COM_RECIPEMANAGER_RECIPE_MODIFIED_DATE_LABEL" description="COM_RECIPEMANAGER_RECIPE_MODIFIED_DATE_DESC"
+			label="COM_RECIPE_MANAGER_RECIPE_MODIFIED_DATE_LABEL" description="COM_RECIPE_MANAGER_RECIPE_MODIFIED_DATE_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
 		<!-- [Fields 742] User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
-			label="COM_RECIPEMANAGER_RECIPE_MODIFIED_BY_LABEL"
-			description="COM_RECIPEMANAGER_RECIPE_MODIFIED_BY_DESC"
+			label="COM_RECIPE_MANAGER_RECIPE_MODIFIED_BY_LABEL"
+			description="COM_RECIPE_MANAGER_RECIPE_MODIFIED_BY_DESC"
 			class="readonly"
 			readonly="true"
 			filter="unset"
@@ -67,7 +67,7 @@
 			name="ordering"
 			type="number"
 			class="inputbox validate-ordering"
-			label="COM_RECIPEMANAGER_RECIPE_ORDERING_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_ORDERING_LABEL"
 			description=""
 			default="0"
 			size="6"
@@ -78,8 +78,8 @@
 			name="version"
 			type="text"
 			class="readonly"
-			label="COM_RECIPEMANAGER_RECIPE_VERSION_LABEL"
-			description="COM_RECIPEMANAGER_RECIPE_VERSION_DESC"
+			label="COM_RECIPE_MANAGER_RECIPE_VERSION_LABEL"
+			description="COM_RECIPE_MANAGER_RECIPE_VERSION_DESC"
 			size="6"
 			readonly="true"
 			filter="unset"
@@ -89,27 +89,27 @@
 		<field
 			type="text"
 			name="name"
-			label="COM_RECIPEMANAGER_RECIPE_NAME_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_NAME_LABEL"
 			size="40"
 			maxlength="150"
-			description="COM_RECIPEMANAGER_RECIPE_NAME_DESCRIPTION"
+			description="COM_RECIPE_MANAGER_RECIPE_NAME_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="COM_RECIPEMANAGER_RECIPE_NAME_MESSAGE"
-			hint="COM_RECIPEMANAGER_RECIPE_NAME_HINT"
+			message="COM_RECIPE_MANAGER_RECIPE_NAME_MESSAGE"
+			hint="COM_RECIPE_MANAGER_RECIPE_NAME_HINT"
 		/>
 		<!-- [Fields 1770] Catid Field. Type: Category. (joomla) -->
 		<field
 			type="category"
 			name="catid"
-			label="COM_RECIPEMANAGER_RECIPE_CATID_LABEL"
-			extension="com_recipemanager"
+			label="COM_RECIPE_MANAGER_RECIPE_CATID_LABEL"
+			extension="com_recipe_manager"
 			required="true"
 			default=""
-			description="COM_RECIPEMANAGER_RECIPE_CATID_DESCRIPTION"
+			description="COM_RECIPE_MANAGER_RECIPE_CATID_DESCRIPTION"
 			class="inputbox"
 			published="1"
 			multiple="false"
@@ -118,7 +118,7 @@
 		<field
 			type="subform"
 			name="ingredients"
-			label="COM_RECIPEMANAGER_RECIPE_INGREDIENTS_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_INGREDIENTS_LABEL"
 			layout="joomla.form.field.subform.repeatable-table"
 			multiple="true"
 			buttons="add,remove,move"
@@ -131,7 +131,7 @@
 				<field
 					type="ingredients"
 					name="ingredients"
-					label="COM_RECIPEMANAGER_RECIPE_INGREDIENTS_LABEL"
+					label="COM_RECIPE_MANAGER_RECIPE_INGREDIENTS_LABEL"
 					class="list_class"
 					multiple="false"
 					default="0"
@@ -142,7 +142,7 @@
 				<field
 					type="number"
 					name="quantity"
-					label="COM_RECIPEMANAGER_RECIPE_QUANTITY_LABEL"
+					label="COM_RECIPE_MANAGER_RECIPE_QUANTITY_LABEL"
 					default=""
 					class="text_area"
 					min="1"
@@ -155,18 +155,18 @@
 		<field
 			type="text"
 			name="alias"
-			label="COM_RECIPEMANAGER_RECIPE_ALIAS_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_ALIAS_LABEL"
 			description="JFIELD_ALIAS_DESC"
 			filter="STRING"
-			hint="COM_RECIPEMANAGER_RECIPE_ALIAS_HINT"
+			hint="COM_RECIPE_MANAGER_RECIPE_ALIAS_HINT"
 		/>
 		<!-- [Fields 2057] Preparing_time Field. Type: Number. (joomla) -->
 		<field
 			type="number"
 			name="preparing_time"
-			label="COM_RECIPEMANAGER_RECIPE_PREPARING_TIME_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_PREPARING_TIME_LABEL"
 			default=""
-			description="COM_RECIPEMANAGER_RECIPE_PREPARING_TIME_DESCRIPTION"
+			description="COM_RECIPE_MANAGER_RECIPE_PREPARING_TIME_DESCRIPTION"
 			class="text_area"
 			min="1"
 			max="60"
@@ -176,32 +176,32 @@
 		<field
 			type="media"
 			name="image"
-			label="COM_RECIPEMANAGER_RECIPE_IMAGE_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_IMAGE_LABEL"
 			directory=""
 		/>
 		<!-- [Fields 2057] Description Field. Type: Textarea. (joomla) -->
 		<field
 			type="textarea"
 			name="description"
-			label="COM_RECIPEMANAGER_RECIPE_DESCRIPTION_LABEL"
+			label="COM_RECIPE_MANAGER_RECIPE_DESCRIPTION_LABEL"
 			rows="11"
 			cols="10"
-			description="COM_RECIPEMANAGER_RECIPE_DESCRIPTION_DESCRIPTION"
+			description="COM_RECIPE_MANAGER_RECIPE_DESCRIPTION_DESCRIPTION"
 			class="text_area span12"
 			filter="HTML"
-			hint="COM_RECIPEMANAGER_RECIPE_DESCRIPTION_HINT"
+			hint="COM_RECIPE_MANAGER_RECIPE_DESCRIPTION_HINT"
 		/>
 	</fieldset>
 	
-	<!-- [Interpretation 20425] Access Control Fields. -->
+	<!-- [Interpretation 20417] Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [Interpretation 20430] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- [Interpretation 20422] Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [Interpretation 20438] Rules Field. Type: Rules (joomla) -->
+		<!-- [Interpretation 20430] Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"
@@ -210,7 +210,7 @@
 			filter="rules"
 			validate="rules"
 			class="inputbox"
-			component="com_recipemanager"
+			component="com_recipe_manager"
 			section="recipe"
 		/>
 	</fieldset>

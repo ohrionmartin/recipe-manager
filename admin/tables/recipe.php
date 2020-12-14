@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		recipe.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -28,7 +28,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Recipes Table class
  */
-class RecipemanagerTableRecipe extends JTable
+class Recipe_managerTableRecipe extends JTable
 {
 	/**
 	 * Ensure the params and metadata in json encoded in the bind method
@@ -45,10 +45,10 @@ class RecipemanagerTableRecipe extends JTable
 	 */
 	function __construct(&$db) 
 	{
-		parent::__construct('#__recipemanager_recipe', 'id', $db);
+		parent::__construct('#__recipe_manager_recipe', 'id', $db);
 
 		// [Interpretation 7724] Adding History Options
-		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_recipemanager.recipe'));
+		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_recipe_manager.recipe'));
 	}	
  
 	public function bind($array, $ignore = '')
@@ -112,11 +112,11 @@ class RecipemanagerTableRecipe extends JTable
 		if (isset($this->alias))
 		{
 			// Verify that the alias is unique
-			$table = JTable::getInstance('recipe', 'RecipemanagerTable');
+			$table = JTable::getInstance('recipe', 'Recipe_managerTable');
 
 			if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
 			{
-				$this->setError(JText::_('COM_RECIPEMANAGER_RECIPE_ERROR_UNIQUE_ALIAS'));
+				$this->setError(JText::_('COM_RECIPE_MANAGER_RECIPE_ERROR_UNIQUE_ALIAS'));
 				return false;
 			}
 		}
@@ -147,7 +147,7 @@ class RecipemanagerTableRecipe extends JTable
 			// Generate a valid alias
 			$this->generateAlias();
             
-			$table = JTable::getInstance('recipe', 'recipemanagerTable');
+			$table = JTable::getInstance('recipe', 'recipe_managerTable');
 
 			while ($table->load(array('alias' => $this->alias)) && ($table->id != $this->id || $this->id == 0))
 			{
@@ -196,7 +196,7 @@ class RecipemanagerTableRecipe extends JTable
 		// If we don't have any access rules set at this point just use an empty JAccessRules class
 		if (!$this->getRules())
 		{
-			$rules = $this->getDefaultAssetValues('com_recipemanager.recipe.'.$this->id);
+			$rules = $this->getDefaultAssetValues('com_recipe_manager.recipe.'.$this->id);
 			$this->setRules($rules);
 		}
         
@@ -287,7 +287,7 @@ class RecipemanagerTableRecipe extends JTable
 	protected function _getAssetName()
 	{
 		$k = $this->_tbl_key;
-		return 'com_recipemanager.recipe.'.(int) $this->$k;
+		return 'com_recipe_manager.recipe.'.(int) $this->$k;
 	}
 
 	/**
@@ -314,7 +314,7 @@ class RecipemanagerTableRecipe extends JTable
 	protected function _getAssetParentId(JTable $table = NULL, $id = NULL) 
 	{
 		$asset = JTable::getInstance('Asset');
-		$asset->loadByName('com_recipemanager');
+		$asset->loadByName('com_recipe_manager');
 
 		return $asset->id;
 	}

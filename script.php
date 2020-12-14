@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		script.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,9 +24,9 @@ defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.modal');
 
 /**
- * Script File of Recipemanager Component
+ * Script File of Recipe_manager Component
  */
-class com_recipemanagerInstallerScript
+class com_recipe_managerInstallerScript
 {
 	/**
 	 * Constructor
@@ -63,7 +63,7 @@ class com_recipemanagerInstallerScript
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
 		// [Interpretation 8266] Where Ingredient alias is found
-		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.ingredient') );
+		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.ingredient') );
 		$db->setQuery($query);
 		// [Interpretation 8273] Execute query to see if alias is found
 		$db->execute();
@@ -74,7 +74,7 @@ class com_recipemanagerInstallerScript
 			// [Interpretation 8285] Since there are load the needed  ingredient type ids
 			$ingredient_ids = $db->loadColumn();
 			// [Interpretation 8293] Remove Ingredient from the content type table
-			$ingredient_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.ingredient') );
+			$ingredient_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.ingredient') );
 			// [Interpretation 8300] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
@@ -85,11 +85,11 @@ class com_recipemanagerInstallerScript
 			if ($ingredient_done)
 			{
 				// [Interpretation 8318] If successfully remove Ingredient add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.ingredient) type alias was removed from the <b>#__content_type</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.ingredient) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
 			// [Interpretation 8329] Remove Ingredient items from the contentitem tag map table
-			$ingredient_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.ingredient') );
+			$ingredient_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.ingredient') );
 			// [Interpretation 8335] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
@@ -100,11 +100,11 @@ class com_recipemanagerInstallerScript
 			if ($ingredient_done)
 			{
 				// [Interpretation 8353] If successfully remove Ingredient add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.ingredient) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.ingredient) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
 			// [Interpretation 8364] Remove Ingredient items from the ucm content table
-			$ingredient_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipemanager.ingredient') );
+			$ingredient_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipe_manager.ingredient') );
 			// [Interpretation 8370] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
@@ -115,7 +115,7 @@ class com_recipemanagerInstallerScript
 			if ($ingredient_done)
 			{
 				// [Interpretation 8388] If successfully removed Ingredient add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.ingredient) type alias was removed from the <b>#__ucm_content</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.ingredient) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
 			// [Interpretation 8399] Make sure that all the Ingredient items are cleared from DB
@@ -149,7 +149,7 @@ class com_recipemanagerInstallerScript
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
 		// [Interpretation 8266] Where Recipe alias is found
-		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe') );
+		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe') );
 		$db->setQuery($query);
 		// [Interpretation 8273] Execute query to see if alias is found
 		$db->execute();
@@ -160,7 +160,7 @@ class com_recipemanagerInstallerScript
 			// [Interpretation 8285] Since there are load the needed  recipe type ids
 			$recipe_ids = $db->loadColumn();
 			// [Interpretation 8293] Remove Recipe from the content type table
-			$recipe_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe') );
+			$recipe_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe') );
 			// [Interpretation 8300] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
@@ -171,11 +171,11 @@ class com_recipemanagerInstallerScript
 			if ($recipe_done)
 			{
 				// [Interpretation 8318] If successfully remove Recipe add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe) type alias was removed from the <b>#__content_type</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
 			// [Interpretation 8329] Remove Recipe items from the contentitem tag map table
-			$recipe_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe') );
+			$recipe_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe') );
 			// [Interpretation 8335] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
@@ -186,11 +186,11 @@ class com_recipemanagerInstallerScript
 			if ($recipe_done)
 			{
 				// [Interpretation 8353] If successfully remove Recipe add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
 			// [Interpretation 8364] Remove Recipe items from the ucm content table
-			$recipe_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipemanager.recipe') );
+			$recipe_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipe_manager.recipe') );
 			// [Interpretation 8370] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
@@ -201,7 +201,7 @@ class com_recipemanagerInstallerScript
 			if ($recipe_done)
 			{
 				// [Interpretation 8388] If successfully removed Recipe add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe) type alias was removed from the <b>#__ucm_content</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
 			// [Interpretation 8399] Make sure that all the Recipe items are cleared from DB
@@ -235,7 +235,7 @@ class com_recipemanagerInstallerScript
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
 		// [Interpretation 8266] Where Recipe catid alias is found
-		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe.category') );
+		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe.category') );
 		$db->setQuery($query);
 		// [Interpretation 8273] Execute query to see if alias is found
 		$db->execute();
@@ -246,7 +246,7 @@ class com_recipemanagerInstallerScript
 			// [Interpretation 8285] Since there are load the needed  recipe_catid type ids
 			$recipe_catid_ids = $db->loadColumn();
 			// [Interpretation 8293] Remove Recipe catid from the content type table
-			$recipe_catid_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe.category') );
+			$recipe_catid_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe.category') );
 			// [Interpretation 8300] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
@@ -257,11 +257,11 @@ class com_recipemanagerInstallerScript
 			if ($recipe_catid_done)
 			{
 				// [Interpretation 8318] If successfully remove Recipe catid add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe.category) type alias was removed from the <b>#__content_type</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe.category) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
 			// [Interpretation 8329] Remove Recipe catid items from the contentitem tag map table
-			$recipe_catid_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipemanager.recipe.category') );
+			$recipe_catid_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_recipe_manager.recipe.category') );
 			// [Interpretation 8335] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
@@ -272,11 +272,11 @@ class com_recipemanagerInstallerScript
 			if ($recipe_catid_done)
 			{
 				// [Interpretation 8353] If successfully remove Recipe catid add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe.category) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe.category) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
 			// [Interpretation 8364] Remove Recipe catid items from the ucm content table
-			$recipe_catid_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipemanager.recipe.category') );
+			$recipe_catid_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_recipe_manager.recipe.category') );
 			// [Interpretation 8370] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
@@ -287,7 +287,7 @@ class com_recipemanagerInstallerScript
 			if ($recipe_catid_done)
 			{
 				// [Interpretation 8388] If successfully removed Recipe catid add queued success message.
-				$app->enqueueMessage(JText::_('The (com_recipemanager.recipe.category) type alias was removed from the <b>#__ucm_content</b> table'));
+				$app->enqueueMessage(JText::_('The (com_recipe_manager.recipe.category) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
 			// [Interpretation 8399] Make sure that all the Recipe catid items are cleared from DB
@@ -319,18 +319,18 @@ class com_recipemanagerInstallerScript
 		$app->enqueueMessage(JText::_('All related items was removed from the <b>#__ucm_base</b> table'));
 		$app->enqueueMessage(JText::_('All related items was removed from the <b>#__ucm_history</b> table'));
 
-		// [Interpretation 8467] Remove recipemanager assets from the assets table
-		$recipemanager_condition = array( $db->quoteName('name') . ' LIKE ' . $db->quote('com_recipemanager%') );
+		// [Interpretation 8467] Remove recipe_manager assets from the assets table
+		$recipe_manager_condition = array( $db->quoteName('name') . ' LIKE ' . $db->quote('com_recipe_manager%') );
 
 		// [Interpretation 8473] Create a new query object.
 		$query = $db->getQuery(true);
 		$query->delete($db->quoteName('#__assets'));
-		$query->where($recipemanager_condition);
+		$query->where($recipe_manager_condition);
 		$db->setQuery($query);
 		$recipe_catid_done = $db->execute();
 		if ($recipe_catid_done)
 		{
-			// [Interpretation 8486] If successfully removed recipemanager add queued success message.
+			// [Interpretation 8486] If successfully removed recipe_manager add queued success message.
 			$app->enqueueMessage(JText::_('All related items was removed from the <b>#__assets</b> table'));
 		}
 
@@ -384,12 +384,12 @@ class com_recipemanagerInstallerScript
 		{
 		}
 		// check if the PHPExcel stuff is still around
-		if (JFile::exists(JPATH_ADMINISTRATOR . '/components/com_recipemanager/helpers/PHPExcel.php'))
+		if (JFile::exists(JPATH_ADMINISTRATOR . '/components/com_recipe_manager/helpers/PHPExcel.php'))
 		{
 			// We need to remove this old PHPExcel folder
-			$this->removeFolder(JPATH_ADMINISTRATOR . '/components/com_recipemanager/helpers/PHPExcel');
+			$this->removeFolder(JPATH_ADMINISTRATOR . '/components/com_recipe_manager/helpers/PHPExcel');
 			// We need to remove this old PHPExcel file
-			JFile::delete(JPATH_ADMINISTRATOR . '/components/com_recipemanager/helpers/PHPExcel.php');
+			JFile::delete(JPATH_ADMINISTRATOR . '/components/com_recipe_manager/helpers/PHPExcel.php');
 		}
 		return true;
 	}
@@ -406,7 +406,7 @@ class com_recipemanagerInstallerScript
 	{
 		// get application
 		$app = JFactory::getApplication();
-		// [Interpretation 8670] We check if we have dynamic folders to copy
+		// [Interpretation 8662] We check if we have dynamic folders to copy
 		$this->setDynamicF0ld3rs($app, $parent);
 		// set the default component settings
 		if ($type === 'install')
@@ -417,35 +417,35 @@ class com_recipemanagerInstallerScript
 
 			// [Interpretation 7810] Create the ingredient content type object.
 			$ingredient = new stdClass();
-			$ingredient->type_title = 'Recipemanager Ingredient';
-			$ingredient->type_alias = 'com_recipemanager.ingredient';
-			$ingredient->table = '{"special": {"dbtable": "#__recipemanager_ingredient","key": "id","type": "Ingredient","prefix": "recipemanagerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$ingredient->type_title = 'Recipe_manager Ingredient';
+			$ingredient->type_alias = 'com_recipe_manager.ingredient';
+			$ingredient->table = '{"special": {"dbtable": "#__recipe_manager_ingredient","key": "id","type": "Ingredient","prefix": "recipe_managerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
 			$ingredient->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","unit":"unit","image":"image"}}';
-			$ingredient->router = 'RecipemanagerHelperRoute::getIngredientRoute';
-			$ingredient->content_history_options = '{"formFile": "administrator/components/com_recipemanager/models/forms/ingredient.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+			$ingredient->router = 'Recipe_managerHelperRoute::getIngredientRoute';
+			$ingredient->content_history_options = '{"formFile": "administrator/components/com_recipe_manager/models/forms/ingredient.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
 			// [Interpretation 7843] Set the object into the content types table.
 			$ingredient_Inserted = $db->insertObject('#__content_types', $ingredient);
 
 			// [Interpretation 7810] Create the recipe content type object.
 			$recipe = new stdClass();
-			$recipe->type_title = 'Recipemanager Recipe';
-			$recipe->type_alias = 'com_recipemanager.recipe';
-			$recipe->table = '{"special": {"dbtable": "#__recipemanager_recipe","key": "id","type": "Recipe","prefix": "recipemanagerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$recipe->type_title = 'Recipe_manager Recipe';
+			$recipe->type_alias = 'com_recipe_manager.recipe';
+			$recipe->table = '{"special": {"dbtable": "#__recipe_manager_recipe","key": "id","type": "Recipe","prefix": "recipe_managerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
 			$recipe->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "catid","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","alias":"alias","preparing_time":"preparing_time","image":"image","description":"description"}}';
-			$recipe->router = 'RecipemanagerHelperRoute::getRecipeRoute';
-			$recipe->content_history_options = '{"formFile": "administrator/components/com_recipemanager/models/forms/recipe.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","catid","preparing_time"],"displayLookup": [{"sourceColumn": "catid","targetTable": "#__categories","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+			$recipe->router = 'Recipe_managerHelperRoute::getRecipeRoute';
+			$recipe->content_history_options = '{"formFile": "administrator/components/com_recipe_manager/models/forms/recipe.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","catid","preparing_time"],"displayLookup": [{"sourceColumn": "catid","targetTable": "#__categories","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
 			// [Interpretation 7843] Set the object into the content types table.
 			$recipe_Inserted = $db->insertObject('#__content_types', $recipe);
 
 			// [Interpretation 7810] Create the recipe category content type object.
 			$recipe_category = new stdClass();
-			$recipe_category->type_title = 'Recipemanager Recipe Catid';
-			$recipe_category->type_alias = 'com_recipemanager.recipe.category';
+			$recipe_category->type_title = 'Recipe_manager Recipe Catid';
+			$recipe_category->type_alias = 'com_recipe_manager.recipe.category';
 			$recipe_category->table = '{"special":{"dbtable":"#__categories","key":"id","type":"Category","prefix":"JTable","config":"array()"},"common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}';
 			$recipe_category->field_mappings = '{"common":{"core_content_item_id":"id","core_title":"title","core_state":"published","core_alias":"alias","core_created_time":"created_time","core_modified_time":"modified_time","core_body":"description", "core_hits":"hits","core_publish_up":"null","core_publish_down":"null","core_access":"access", "core_params":"params", "core_featured":"null", "core_metadata":"metadata", "core_language":"language", "core_images":"null", "core_urls":"null", "core_version":"version", "core_ordering":"null", "core_metakey":"metakey", "core_metadesc":"metadesc", "core_catid":"parent_id", "core_xreference":"null", "asset_id":"asset_id"}, "special":{"parent_id":"parent_id","lft":"lft","rgt":"rgt","level":"level","path":"path","extension":"extension","note":"note"}}';
-			$recipe_category->router = 'RecipemanagerHelperRoute::getCategoryRoute';
+			$recipe_category->router = 'Recipe_managerHelperRoute::getCategoryRoute';
 			$recipe_category->content_history_options = '{"formFile":"administrator\/components\/com_categories\/models\/forms\/category.xml", "hideFields":["asset_id","checked_out","checked_out_time","version","lft","rgt","level","path","extension"], "ignoreChanges":["modified_user_id", "modified_time", "checked_out", "checked_out_time", "version", "hits", "path"],"convertToInt":["publish_up", "publish_down"], "displayLookup":[{"sourceColumn":"created_user_id","targetTable":"#__users","targetColumn":"id","displayColumn":"name"},{"sourceColumn":"access","targetTable":"#__viewlevels","targetColumn":"id","displayColumn":"title"},{"sourceColumn":"modified_user_id","targetTable":"#__users","targetColumn":"id","displayColumn":"name"},{"sourceColumn":"parent_id","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}]}';
 
 			// [Interpretation 7843] Set the object into the content types table.
@@ -460,14 +460,14 @@ class com_recipemanagerInstallerScript
 			);
 			// [Interpretation 7954] Condition.
 			$conditions = array(
-				$db->quoteName('element') . ' = ' . $db->quote('com_recipemanager')
+				$db->quoteName('element') . ' = ' . $db->quote('com_recipe_manager')
 			);
 			$query->update($db->quoteName('#__extensions'))->set($fields)->where($conditions);
 			$db->setQuery($query);
 			$allDone = $db->execute();
 
 			echo '<a target="_blank" href="https://www.vdm.io" title="Recipe Manager">
-				<img src="components/com_recipemanager/assets/images/vdm-component.png"/>
+				<img src="components/com_recipe_manager/assets/images/vdm-component.png"/>
 				</a>';
 		}
 		// do any updates needed
@@ -479,12 +479,12 @@ class com_recipemanagerInstallerScript
 
 			// [Interpretation 7810] Create the ingredient content type object.
 			$ingredient = new stdClass();
-			$ingredient->type_title = 'Recipemanager Ingredient';
-			$ingredient->type_alias = 'com_recipemanager.ingredient';
-			$ingredient->table = '{"special": {"dbtable": "#__recipemanager_ingredient","key": "id","type": "Ingredient","prefix": "recipemanagerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$ingredient->type_title = 'Recipe_manager Ingredient';
+			$ingredient->type_alias = 'com_recipe_manager.ingredient';
+			$ingredient->table = '{"special": {"dbtable": "#__recipe_manager_ingredient","key": "id","type": "Ingredient","prefix": "recipe_managerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
 			$ingredient->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","unit":"unit","image":"image"}}';
-			$ingredient->router = 'RecipemanagerHelperRoute::getIngredientRoute';
-			$ingredient->content_history_options = '{"formFile": "administrator/components/com_recipemanager/models/forms/ingredient.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+			$ingredient->router = 'Recipe_managerHelperRoute::getIngredientRoute';
+			$ingredient->content_history_options = '{"formFile": "administrator/components/com_recipe_manager/models/forms/ingredient.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
 			// [Interpretation 7823] Check if ingredient type is already in content_type DB.
 			$ingredient_id = null;
@@ -508,12 +508,12 @@ class com_recipemanagerInstallerScript
 
 			// [Interpretation 7810] Create the recipe content type object.
 			$recipe = new stdClass();
-			$recipe->type_title = 'Recipemanager Recipe';
-			$recipe->type_alias = 'com_recipemanager.recipe';
-			$recipe->table = '{"special": {"dbtable": "#__recipemanager_recipe","key": "id","type": "Recipe","prefix": "recipemanagerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$recipe->type_title = 'Recipe_manager Recipe';
+			$recipe->type_alias = 'com_recipe_manager.recipe';
+			$recipe->table = '{"special": {"dbtable": "#__recipe_manager_recipe","key": "id","type": "Recipe","prefix": "recipe_managerTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
 			$recipe->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "catid","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","alias":"alias","preparing_time":"preparing_time","image":"image","description":"description"}}';
-			$recipe->router = 'RecipemanagerHelperRoute::getRecipeRoute';
-			$recipe->content_history_options = '{"formFile": "administrator/components/com_recipemanager/models/forms/recipe.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","catid","preparing_time"],"displayLookup": [{"sourceColumn": "catid","targetTable": "#__categories","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+			$recipe->router = 'Recipe_managerHelperRoute::getRecipeRoute';
+			$recipe->content_history_options = '{"formFile": "administrator/components/com_recipe_manager/models/forms/recipe.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","catid","preparing_time"],"displayLookup": [{"sourceColumn": "catid","targetTable": "#__categories","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
 			// [Interpretation 7823] Check if recipe type is already in content_type DB.
 			$recipe_id = null;
@@ -537,11 +537,11 @@ class com_recipemanagerInstallerScript
 
 			// [Interpretation 7810] Create the recipe category content type object.
 			$recipe_category = new stdClass();
-			$recipe_category->type_title = 'Recipemanager Recipe Catid';
-			$recipe_category->type_alias = 'com_recipemanager.recipe.category';
+			$recipe_category->type_title = 'Recipe_manager Recipe Catid';
+			$recipe_category->type_alias = 'com_recipe_manager.recipe.category';
 			$recipe_category->table = '{"special":{"dbtable":"#__categories","key":"id","type":"Category","prefix":"JTable","config":"array()"},"common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}';
 			$recipe_category->field_mappings = '{"common":{"core_content_item_id":"id","core_title":"title","core_state":"published","core_alias":"alias","core_created_time":"created_time","core_modified_time":"modified_time","core_body":"description", "core_hits":"hits","core_publish_up":"null","core_publish_down":"null","core_access":"access", "core_params":"params", "core_featured":"null", "core_metadata":"metadata", "core_language":"language", "core_images":"null", "core_urls":"null", "core_version":"version", "core_ordering":"null", "core_metakey":"metakey", "core_metadesc":"metadesc", "core_catid":"parent_id", "core_xreference":"null", "asset_id":"asset_id"}, "special":{"parent_id":"parent_id","lft":"lft","rgt":"rgt","level":"level","path":"path","extension":"extension","note":"note"}}';
-			$recipe_category->router = 'RecipemanagerHelperRoute::getCategoryRoute';
+			$recipe_category->router = 'Recipe_managerHelperRoute::getCategoryRoute';
 			$recipe_category->content_history_options = '{"formFile":"administrator\/components\/com_categories\/models\/forms\/category.xml", "hideFields":["asset_id","checked_out","checked_out_time","version","lft","rgt","level","path","extension"], "ignoreChanges":["modified_user_id", "modified_time", "checked_out", "checked_out_time", "version", "hits", "path"],"convertToInt":["publish_up", "publish_down"], "displayLookup":[{"sourceColumn":"created_user_id","targetTable":"#__users","targetColumn":"id","displayColumn":"name"},{"sourceColumn":"access","targetTable":"#__viewlevels","targetColumn":"id","displayColumn":"title"},{"sourceColumn":"modified_user_id","targetTable":"#__users","targetColumn":"id","displayColumn":"name"},{"sourceColumn":"parent_id","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}]}';
 
 			// [Interpretation 7823] Check if recipe category type is already in content_type DB.
@@ -566,9 +566,9 @@ class com_recipemanagerInstallerScript
 
 
 			echo '<a target="_blank" href="https://www.vdm.io" title="Recipe Manager">
-				<img src="components/com_recipemanager/assets/images/vdm-component.png"/>
+				<img src="components/com_recipe_manager/assets/images/vdm-component.png"/>
 				</a>
-				<h3>Upgrade to Version 1.0.0 Was Successful! Let us know if anything is not working as expected.</h3>';
+				<h3>Upgrade to Version 1.0.2 Was Successful! Let us know if anything is not working as expected.</h3>';
 		}
 		return true;
 	}
@@ -681,25 +681,25 @@ class com_recipemanagerInstallerScript
 	 */
 	protected function setDynamicF0ld3rs($app, $parent)
 	{
-		// [Interpretation 8697] get the instalation path
+		// [Interpretation 8689] get the instalation path
 		$installer = $parent->getParent();
 		$installPath = $installer->getPath('source');
-		// [Interpretation 8702] get all the folders
+		// [Interpretation 8694] get all the folders
 		$folders = JFolder::folders($installPath);
-		// [Interpretation 8706] check if we have folders we may want to copy
+		// [Interpretation 8698] check if we have folders we may want to copy
 		$doNotCopy = array('media','admin','site'); // Joomla already deals with these
 		if (count((array) $folders) > 1)
 		{
 			foreach ($folders as $folder)
 			{
-				// [Interpretation 8714] Only copy if not a standard folders
+				// [Interpretation 8706] Only copy if not a standard folders
 				if (!in_array($folder, $doNotCopy))
 				{
-					// [Interpretation 8718] set the source path
+					// [Interpretation 8710] set the source path
 					$src = $installPath.'/'.$folder;
-					// [Interpretation 8721] set the destination path
+					// [Interpretation 8713] set the destination path
 					$dest = JPATH_ROOT.'/'.$folder;
-					// [Interpretation 8724] now try to copy the folder
+					// [Interpretation 8716] now try to copy the folder
 					if (!JFolder::copy($src, $dest, '', true))
 					{
 						$app->enqueueMessage('Could not copy '.$folder.' folder into place, please make sure destination is writable!', 'error');

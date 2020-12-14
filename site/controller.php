@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		controller.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,9 +24,9 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Recipemanager Component Controller
+ * Recipe_manager Component Controller
  */
-class RecipemanagerController extends JControllerLegacy
+class Recipe_managerController extends JControllerLegacy
 {
 	/**
 	 * Method to display a view.
@@ -57,7 +57,7 @@ class RecipemanagerController extends JControllerLegacy
 		// Check for edit form.
 		if($isEdit)
 		{
-			if ($layout == 'edit' && !$this->checkEditId('com_recipemanager.edit.'.$view, $id))
+			if ($layout == 'edit' && !$this->checkEditId('com_recipe_manager.edit.'.$view, $id))
 			{
 				// Somehow the person just went to the form - we don't allow that.
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
@@ -66,20 +66,20 @@ class RecipemanagerController extends JControllerLegacy
 				$ref 	= $this->input->getCmd('ref', 0);
 				$refid 	= $this->input->getInt('refid', 0);
 				// set redirect
-				if ($refid > 0 && RecipemanagerHelper::checkString($ref))
+				if ($refid > 0 && Recipe_managerHelper::checkString($ref))
 				{
 					// redirect to item of ref
-					$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view='.(string)$ref.'&layout=edit&id='.(int)$refid, false));
+					$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view='.(string)$ref.'&layout=edit&id='.(int)$refid, false));
 				}
-				elseif (RecipemanagerHelper::checkString($ref))
+				elseif (Recipe_managerHelper::checkString($ref))
 				{
 					// redirect to ref
-					 $this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view='.(string)$ref, false));
+					 $this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view='.(string)$ref, false));
 				}
 				else
 				{
 					// normal redirect back to the list default site view
-					$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view=recipes', false));
+					$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view=recipes', false));
 				}
 				return false;
 			}
@@ -105,9 +105,9 @@ class RecipemanagerController extends JControllerLegacy
 			'Itemid' => 'INT');
 
 		// should these not merge?
-		if (RecipemanagerHelper::checkArray($urlparams))
+		if (Recipe_managerHelper::checkArray($urlparams))
 		{
-			$safeurlparams = RecipemanagerHelper::mergeArrays(array($urlparams, $safeurlparams));
+			$safeurlparams = Recipe_managerHelper::mergeArrays(array($urlparams, $safeurlparams));
 		}
 
 		return parent::display($cachable, $safeurlparams);
@@ -115,7 +115,7 @@ class RecipemanagerController extends JControllerLegacy
 
 	protected function checkEditView($view)
 	{
-		if (RecipemanagerHelper::checkString($view))
+		if (Recipe_managerHelper::checkString($view))
 		{
 			$views = array(
 

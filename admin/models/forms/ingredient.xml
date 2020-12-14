@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form
-	addrulepath="/administrator/components/com_recipemanager/models/rules"
-	addfieldpath="/administrator/components/com_recipemanager/models/fields"
+	addrulepath="/administrator/components/com_recipe_manager/models/rules"
+	addfieldpath="/administrator/components/com_recipe_manager/models/fields"
 >
 	<fieldset name="details">
 		<!-- [Fields 636] Default Fields. -->
@@ -16,8 +16,8 @@
 		<field
 			name="created"
 			type="calendar"
-			label="COM_RECIPEMANAGER_INGREDIENT_CREATED_DATE_LABEL"
-			description="COM_RECIPEMANAGER_INGREDIENT_CREATED_DATE_DESC"
+			label="COM_RECIPE_MANAGER_INGREDIENT_CREATED_DATE_LABEL"
+			description="COM_RECIPE_MANAGER_INGREDIENT_CREATED_DATE_DESC"
 			size="22"
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
@@ -26,8 +26,8 @@
 		<field
 			name="created_by"
 			type="user"
-			label="COM_RECIPEMANAGER_INGREDIENT_CREATED_BY_LABEL"
-			description="COM_RECIPEMANAGER_INGREDIENT_CREATED_BY_DESC"
+			label="COM_RECIPE_MANAGER_INGREDIENT_CREATED_BY_LABEL"
+			description="COM_RECIPE_MANAGER_INGREDIENT_CREATED_BY_DESC"
 		/>
 		<!-- [Fields 700] Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
@@ -44,12 +44,12 @@
 		</field>
 		<!-- [Fields 727] Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
-			label="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_DATE_LABEL" description="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_DATE_DESC"
+			label="COM_RECIPE_MANAGER_INGREDIENT_MODIFIED_DATE_LABEL" description="COM_RECIPE_MANAGER_INGREDIENT_MODIFIED_DATE_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
 		<!-- [Fields 742] User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
-			label="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_BY_LABEL"
-			description="COM_RECIPEMANAGER_INGREDIENT_MODIFIED_BY_DESC"
+			label="COM_RECIPE_MANAGER_INGREDIENT_MODIFIED_BY_LABEL"
+			description="COM_RECIPE_MANAGER_INGREDIENT_MODIFIED_BY_DESC"
 			class="readonly"
 			readonly="true"
 			filter="unset"
@@ -67,7 +67,7 @@
 			name="ordering"
 			type="number"
 			class="inputbox validate-ordering"
-			label="COM_RECIPEMANAGER_INGREDIENT_ORDERING_LABEL"
+			label="COM_RECIPE_MANAGER_INGREDIENT_ORDERING_LABEL"
 			description=""
 			default="0"
 			size="6"
@@ -78,8 +78,8 @@
 			name="version"
 			type="text"
 			class="readonly"
-			label="COM_RECIPEMANAGER_INGREDIENT_VERSION_LABEL"
-			description="COM_RECIPEMANAGER_INGREDIENT_VERSION_DESC"
+			label="COM_RECIPE_MANAGER_INGREDIENT_VERSION_LABEL"
+			description="COM_RECIPE_MANAGER_INGREDIENT_VERSION_DESC"
 			size="6"
 			readonly="true"
 			filter="unset"
@@ -89,23 +89,23 @@
 		<field
 			type="text"
 			name="name"
-			label="COM_RECIPEMANAGER_INGREDIENT_NAME_LABEL"
+			label="COM_RECIPE_MANAGER_INGREDIENT_NAME_LABEL"
 			size="40"
 			maxlength="150"
-			description="COM_RECIPEMANAGER_INGREDIENT_NAME_DESCRIPTION"
+			description="COM_RECIPE_MANAGER_INGREDIENT_NAME_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="COM_RECIPEMANAGER_INGREDIENT_NAME_MESSAGE"
-			hint="COM_RECIPEMANAGER_INGREDIENT_NAME_HINT"
+			message="COM_RECIPE_MANAGER_INGREDIENT_NAME_MESSAGE"
+			hint="COM_RECIPE_MANAGER_INGREDIENT_NAME_HINT"
 		/>
 		<!-- [Fields 1770] Unit Field. Type: List. (joomla) -->
 		<field
 			type="list"
 			name="unit"
-			label="COM_RECIPEMANAGER_INGREDIENT_UNIT_LABEL"
+			label="COM_RECIPE_MANAGER_INGREDIENT_UNIT_LABEL"
 			class="list_class"
 			multiple="false"
 			required="true"
@@ -113,40 +113,40 @@
 			default="0">
 			<!-- [Fields 2033] Option Set. -->
 			<option value="0">
-				COM_RECIPEMANAGER_INGREDIENT_TEASPOON</option>
+				COM_RECIPE_MANAGER_INGREDIENT_TEASPOON</option>
 			<option value=" 1">
-				COM_RECIPEMANAGER_INGREDIENT_DESSERTSPOON</option>
+				COM_RECIPE_MANAGER_INGREDIENT_DESSERTSPOON</option>
 			<option value=" 2">
-				COM_RECIPEMANAGER_INGREDIENT_TABLESPOON</option>
+				COM_RECIPE_MANAGER_INGREDIENT_TABLESPOON</option>
 			<option value=" 3">
-				COM_RECIPEMANAGER_INGREDIENT_FLUIDOUNCE</option>
+				COM_RECIPE_MANAGER_INGREDIENT_FLUIDOUNCE</option>
 			<option value=" 4">
-				COM_RECIPEMANAGER_INGREDIENT_CUP</option>
+				COM_RECIPE_MANAGER_INGREDIENT_CUP</option>
 			<option value=" 5">
-				COM_RECIPEMANAGER_INGREDIENT_PINT</option>
+				COM_RECIPE_MANAGER_INGREDIENT_PINT</option>
 			<option value=" 6">
-				COM_RECIPEMANAGER_INGREDIENT_QUART</option>
+				COM_RECIPE_MANAGER_INGREDIENT_QUART</option>
 			<option value=" 7">
-				COM_RECIPEMANAGER_INGREDIENT_GALLON</option>
+				COM_RECIPE_MANAGER_INGREDIENT_GALLON</option>
 		</field>
 		<!-- [Fields 2057] Image Field. Type: Media. (joomla) -->
 		<field
 			type="media"
 			name="image"
-			label="COM_RECIPEMANAGER_INGREDIENT_IMAGE_LABEL"
+			label="COM_RECIPE_MANAGER_INGREDIENT_IMAGE_LABEL"
 			directory=""
 		/>
 	</fieldset>
 	
-	<!-- [Interpretation 20425] Access Control Fields. -->
+	<!-- [Interpretation 20417] Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [Interpretation 20430] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- [Interpretation 20422] Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [Interpretation 20438] Rules Field. Type: Rules (joomla) -->
+		<!-- [Interpretation 20430] Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"
@@ -155,7 +155,7 @@
 			filter="rules"
 			validate="rules"
 			class="inputbox"
-			component="com_recipemanager"
+			component="com_recipe_manager"
 			section="ingredient"
 		/>
 	</fieldset>

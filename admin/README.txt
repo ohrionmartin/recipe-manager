@@ -1,4 +1,4 @@
- # Recipe Manager (1.0.0)
+ # Recipe Manager (1.0.2)
 
 Recipe Manager allows you to collect, search, organize, and browse your recipes..
 
@@ -8,10 +8,10 @@ Recipe Manager allows you to collect, search, organize, and browse your recipes.
 + *Author*: [Oh Martin](mailto:oh.martin@vdm.io)
 + *Name*: [Recipe Manager](https://www.vdm.io)
 + *First Build*: 5th July, 2020
-+ *Last Build*: 11th December, 2020
-+ *Version*: 1.0.0
++ *Last Build*: 14th December, 2020
++ *Version*: 1.0.2
 + *Copyright*: Copyright (C) 2020. All Rights Reserved
-+ *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
++ *License*: GNU General Public License version 2 or later; see LICENSE.txt
 
 ## Build Time
 
@@ -21,11 +21,11 @@ due to [Automated Component Builder](http://joomlacomponentbuilder.com))
 > (if creating a folder and file took **5 seconds** and writing one line of code took **10 seconds**,
 > never making one mistake or taking any coffee break.)
 
-+ *Line count*: **15622**
-+ *File count*: **149**
++ *Line count*: **15794**
++ *File count*: **151**
 + *Folder count*: **53**
 
-**28 Hours** or **3 Eight Hour Days** (the actual time the author spent)
+**29 Hours** or **3 Eight Hour Days** (the actual time the author spent)
 
 > (with the following break down:
 > **debugging @11hours** = codingtime / 4;
@@ -33,7 +33,7 @@ due to [Automated Component Builder](http://joomlacomponentbuilder.com))
 > **mapping @4hours** = codingtime / 10;
 > **office @7hours** = codingtime / 6;)
 
-**72 Hours** or **9 Eight Hour Days**
+**73 Hours** or **9 Eight Hour Days**
 (a total of the realistic time frame for this project)
 
 > (if creating a folder and file took **5 seconds** and writing one line of code took **10 seconds**,

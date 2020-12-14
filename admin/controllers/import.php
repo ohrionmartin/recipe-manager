@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		import.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,9 +24,9 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Recipemanager Import Controller
+ * Recipe_manager Import Controller
  */
-class RecipemanagerControllerImport extends JControllerLegacy
+class Recipe_managerControllerImport extends JControllerLegacy
 {
 	/**
 	 * Import an spreadsheet.
@@ -47,17 +47,17 @@ class RecipemanagerControllerImport extends JControllerLegacy
 		}
 
 		$app = JFactory::getApplication();
-		$redirect_url = $app->getUserState('com_recipemanager.redirect_url');
+		$redirect_url = $app->getUserState('com_recipe_manager.redirect_url');
 		if (empty($redirect_url))
 		{
-			$redirect_url = JRoute::_('index.php?option=com_recipemanager&view=import', false);
+			$redirect_url = JRoute::_('index.php?option=com_recipe_manager&view=import', false);
 		}
 		else
 		{
 			// wipe out the user state when we're going to redirect
-			$app->setUserState('com_recipemanager.redirect_url', '');
-			$app->setUserState('com_recipemanager.message', '');
-			$app->setUserState('com_recipemanager.extension_message', '');
+			$app->setUserState('com_recipe_manager.redirect_url', '');
+			$app->setUserState('com_recipe_manager.message', '');
+			$app->setUserState('com_recipe_manager.extension_message', '');
 		}
 		$this->setRedirect($redirect_url);
 	}

@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		recipes.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,9 +24,9 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Recipemanager Model for Recipes
+ * Recipe_manager Model for Recipes
  */
-class RecipemanagerModelRecipes extends JModelList
+class Recipe_managerModelRecipes extends JModelList
 {
 	/**
 	 * Model user data.
@@ -65,11 +65,11 @@ class RecipemanagerModelRecipes extends JModelList
 		// [Interpretation 4804] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [Interpretation 2446] Get from #__recipemanager_recipe as a
+		// [Interpretation 2446] Get from #__recipe_manager_recipe as a
 		$query->select($db->quoteName(
 			array('a.id','a.asset_id','a.description','a.image','a.preparing_time','a.name','a.alias','a.catid','a.ingredients','a.published','a.created_by','a.modified_by','a.created','a.modified','a.version','a.hits','a.ordering'),
 			array('id','asset_id','description','image','preparing_time','name','alias','catid','ingredients','published','created_by','modified_by','created','modified','version','hits','ordering')));
-		$query->from($db->quoteName('#__recipemanager_recipe', 'a'));
+		$query->from($db->quoteName('#__recipe_manager_recipe', 'a'));
 
 		// [Interpretation 2446] Get from #__categories as b
 		$query->select($db->quoteName(
@@ -96,10 +96,10 @@ class RecipemanagerModelRecipes extends JModelList
 		$items = parent::getItems();
 
 		// Get the global params
-		$globalParams = JComponentHelper::getParams('com_recipemanager', true);
+		$globalParams = JComponentHelper::getParams('com_recipe_manager', true);
 
 		// [Interpretation 4872] Insure all item fields are adapted where needed.
-		if (RecipemanagerHelper::checkArray($items))
+		if (Recipe_managerHelper::checkArray($items))
 		{
 			// [Interpretation 2924] Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
@@ -109,18 +109,18 @@ class RecipemanagerModelRecipes extends JModelList
 				// [Interpretation 4881] Always create a slug for sef URL's
 				$item->slug = (isset($item->alias) && isset($item->id)) ? $item->id.':'.$item->alias : $item->id;
 				// [Interpretation 2874] Check if we can decode ingredients
-				if (RecipemanagerHelper::checkJson($item->ingredients))
+				if (Recipe_managerHelper::checkJson($item->ingredients))
 				{
 					// [Interpretation 2877] Decode ingredients
 					$item->ingredients = json_decode($item->ingredients, true);
 				}
 				// [Interpretation 2935] Check if item has params, or pass whole item.
-				$params = (isset($item->params) && RecipemanagerHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
+				$params = (isset($item->params) && Recipe_managerHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
 				// [Interpretation 2946] Make sure the content prepare plugins fire on description
 				$_description = new stdClass();
 				$_description->text =& $item->description; // [Interpretation 2953] value must be in text
 				// [Interpretation 2956] Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_recipemanager.recipes.description', &$_description, &$params, 0));
+				$this->_dispatcher->trigger("onContentPrepare", array('com_recipe_manager.recipes.description', &$_description, &$params, 0));
 			}
 		}
 

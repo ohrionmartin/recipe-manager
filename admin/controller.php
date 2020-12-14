@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		controller.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -24,9 +24,9 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * General Controller of Recipemanager component
+ * General Controller of Recipe_manager component
  */
-class RecipemanagerController extends JControllerLegacy
+class Recipe_managerController extends JControllerLegacy
 {
 	/**
 	 * Constructor.
@@ -40,7 +40,7 @@ class RecipemanagerController extends JControllerLegacy
 	public function __construct($config = array())
 	{
 		// set the default view
-		$config['default_view'] = 'recipemanager';
+		$config['default_view'] = 'recipe_manager';
 
 		parent::__construct($config);
 	}
@@ -53,15 +53,15 @@ class RecipemanagerController extends JControllerLegacy
 	function display($cachable = false, $urlparams = false)
 	{
 		// set default view if not set
-		$view   = $this->input->getCmd('view', 'recipemanager');
+		$view   = $this->input->getCmd('view', 'recipe_manager');
 		$data	= $this->getViewRelation($view);
 		$layout	= $this->input->get('layout', null, 'WORD');
 		$id    	= $this->input->getInt('id');
 
 		// Check for edit form.
-		if(RecipemanagerHelper::checkArray($data))
+		if(Recipe_managerHelper::checkArray($data))
 		{
-			if ($data['edit'] && $layout == 'edit' && !$this->checkEditId('com_recipemanager.edit.'.$data['view'], $id))
+			if ($data['edit'] && $layout == 'edit' && !$this->checkEditId('com_recipe_manager.edit.'.$data['view'], $id))
 			{
 				// Somehow the person just went to the form - we don't allow that.
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
@@ -70,21 +70,21 @@ class RecipemanagerController extends JControllerLegacy
 				$ref 	= $this->input->getCmd('ref', 0);
 				$refid 	= $this->input->getInt('refid', 0);
 				// set redirect
-				if ($refid > 0 && RecipemanagerHelper::checkString($ref))
+				if ($refid > 0 && Recipe_managerHelper::checkString($ref))
 				{
 					// redirect to item of ref
-					$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view='.(string)$ref.'&layout=edit&id='.(int)$refid, false));
+					$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view='.(string)$ref.'&layout=edit&id='.(int)$refid, false));
 				}
-				elseif (RecipemanagerHelper::checkString($ref))
+				elseif (Recipe_managerHelper::checkString($ref))
 				{
 
 					// redirect to ref
-					$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view='.(string)$ref, false));
+					$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view='.(string)$ref, false));
 				}
 				else
 				{
 					// normal redirect back to the list view
-					$this->setRedirect(JRoute::_('index.php?option=com_recipemanager&view='.$data['views'], false));
+					$this->setRedirect(JRoute::_('index.php?option=com_recipe_manager&view='.$data['views'], false));
 				}
 
 				return false;
@@ -97,7 +97,7 @@ class RecipemanagerController extends JControllerLegacy
 	protected function getViewRelation($view)
 	{
 		// check the we have a value
-		if (RecipemanagerHelper::checkString($view))
+		if (Recipe_managerHelper::checkString($view))
 		{
 			// the view relationships
 			$views = array(

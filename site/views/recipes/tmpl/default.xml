@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <metadata>
-	<layout title="COM_RECIPEMANAGER_MENU_RECIPES_TITLE" option="COM_RECIPEMANAGER_MENU_RECIPES_OPTION">
+	<layout title="COM_RECIPE_MANAGER_MENU_RECIPES_TITLE" option="COM_RECIPE_MANAGER_MENU_RECIPES_OPTION">
 		<message>
-			<![CDATA[COM_RECIPEMANAGER_MENU_RECIPES_DESC]]>
+			<![CDATA[COM_RECIPE_MANAGER_MENU_RECIPES_DESC]]>
 		</message>
 	</layout>
 </metadata>

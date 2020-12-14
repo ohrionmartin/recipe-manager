@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		route.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -22,9 +22,9 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Recipemanager Route Helper
+ * Recipe_manager Route Helper
  **/
-abstract class RecipemanagerHelperRoute
+abstract class Recipe_managerHelperRoute
 {
 	protected static $lookup;
 
@@ -35,25 +35,25 @@ abstract class RecipemanagerHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [Interpretation 8945] Initialize the needel array.
+			// [Interpretation 8937] Initialize the needel array.
 			$needles = array(
 				'recipes'  => array((int) $id)
 			);
-			// [Interpretation 8951] Create the link
-			$link = 'index.php?option=com_recipemanager&view=recipes&id='. $id;
+			// [Interpretation 8943] Create the link
+			$link = 'index.php?option=com_recipe_manager&view=recipes&id='. $id;
 		}
 		else
 		{
-			// [Interpretation 8959] Initialize the needel array.
+			// [Interpretation 8951] Initialize the needel array.
 			$needles = array(
 				'recipes'  => array()
 			);
-			// [Interpretation 8965] Create the link but don't add the id.
-			$link = 'index.php?option=com_recipemanager&view=recipes';
+			// [Interpretation 8957] Create the link but don't add the id.
+			$link = 'index.php?option=com_recipe_manager&view=recipes';
 		}
 		if ($catid > 1)
 		{
-			$categories = JCategories::getInstance('recipemanager.recipes');
+			$categories = JCategories::getInstance('recipe_manager.recipes');
 			$category = $categories->get($catid);
 			if ($category)
 			{
@@ -72,7 +72,7 @@ abstract class RecipemanagerHelperRoute
 	}
 
 	/**
-	 * Get the URL route for recipemanager category from a category ID and language
+	 * Get the URL route for recipe_manager category from a category ID and language
 	 *
 	 * @param   mixed    $catid     The id of the items's category either an integer id or a instance of JCategoryNode
 	 * @param   mixed    $language  The id of the language being used.
@@ -94,7 +94,7 @@ abstract class RecipemanagerHelperRoute
 		}
 	
 		$views = array(
-			"com_recipemanager" => "recipe");
+			"com_recipe_manager" => "recipe");
 		$view = $views[$category->extension];
        
 		if ($id < 1 || !($category instanceof JCategoryNode))
@@ -104,7 +104,7 @@ abstract class RecipemanagerHelperRoute
 		else
 		{
 			//Create the link
-			$link = 'index.php?option=com_recipemanager&view='.$view.'&category='.$category->slug;
+			$link = 'index.php?option=com_recipe_manager&view='.$view.'&category='.$category->slug;
 			
 			$needles = array(
 					$view => array($id),
@@ -169,7 +169,7 @@ abstract class RecipemanagerHelperRoute
 		{
 			self::$lookup[$language] = array();
 
-			$component  = JComponentHelper::getComponent('com_recipemanager');
+			$component  = JComponentHelper::getComponent('com_recipe_manager');
 
 			$attributes = array('component_id');
 			$values     = array($component->id);
@@ -219,7 +219,7 @@ abstract class RecipemanagerHelperRoute
 			{
 				if (isset(self::$lookup[$language][$view]))
 				{
-					if (RecipemanagerHelper::checkArray($ids))
+					if (Recipe_managerHelper::checkArray($ids))
 					{
 						foreach ($ids as $id)
 						{
@@ -240,7 +240,7 @@ abstract class RecipemanagerHelperRoute
 		if ($type)
 		{
 			// Check if the global menu item has been set.
-			$params = JComponentHelper::getParams('com_recipemanager');
+			$params = JComponentHelper::getParams('com_recipe_manager');
 			if ($item = $params->get($type.'_menu', 0))
 			{
 				return $item;
@@ -251,7 +251,7 @@ abstract class RecipemanagerHelperRoute
 		$active = $menus->getActive();
 
 		if ($active
-			&& $active->component == 'com_recipemanager'
+			&& $active->component == 'com_recipe_manager'
 			&& ($language == '*' || in_array($active->language, array('*', $language)) || !JLanguageMultilang::isEnabled()))
 		{
 			return $active->id;

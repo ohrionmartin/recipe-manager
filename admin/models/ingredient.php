@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		ingredient.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -26,9 +26,9 @@ use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Recipemanager Ingredient Model
+ * Recipe_manager Ingredient Model
  */
-class RecipemanagerModelIngredient extends JModelAdmin
+class Recipe_managerModelIngredient extends JModelAdmin
 {
 	/**
 	 * The tab layout fields array.
@@ -49,7 +49,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
-	protected $text_prefix = 'COM_RECIPEMANAGER';
+	protected $text_prefix = 'COM_RECIPE_MANAGER';
 
 	/**
 	 * The type alias for this content type.
@@ -57,7 +57,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	 * @var      string
 	 * @since    3.2
 	 */
-	public $typeAlias = 'com_recipemanager.ingredient';
+	public $typeAlias = 'com_recipe_manager.ingredient';
 
 	/**
 	 * Returns a Table object, always creating it
@@ -70,10 +70,10 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'ingredient', $prefix = 'RecipemanagerTable', $config = array())
+	public function getTable($type = 'ingredient', $prefix = 'Recipe_managerTable', $config = array())
 	{
 		// add table path for when model gets used from other component
-		$this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_recipemanager/tables');
+		$this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_recipe_manager/tables');
 		// get instance of the table
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -110,7 +110,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			if (!empty($item->id))
 			{
 				$item->tags = new JHelperTags;
-				$item->tags->getTagIds($item->id, 'com_recipemanager.ingredient');
+				$item->tags->getTagIds($item->id, 'com_recipe_manager.ingredient');
 			}
 		}
 
@@ -132,14 +132,14 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	{
 		// set load data option
 		$options['load_data'] = $loadData;
-		// [Interpretation 19364] check if xpath was set in options
+		// [Interpretation 19356] check if xpath was set in options
 		$xpath = false;
 		if (isset($options['xpath']))
 		{
 			$xpath = $options['xpath'];
 			unset($options['xpath']);
 		}
-		// [Interpretation 19372] check if clear form was set in options
+		// [Interpretation 19364] check if clear form was set in options
 		$clear = false;
 		if (isset($options['clear']))
 		{
@@ -147,8 +147,8 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			unset($options['clear']);
 		}
 
-		// [Interpretation 19380] Get the form.
-		$form = $this->loadForm('com_recipemanager.ingredient', 'ingredient', $options, $clear, $xpath);
+		// [Interpretation 19372] Get the form.
+		$form = $this->loadForm('com_recipe_manager.ingredient', 'ingredient', $options, $clear, $xpath);
 
 		if (empty($form))
 		{
@@ -157,12 +157,12 @@ class RecipemanagerModelIngredient extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [Interpretation 19546] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// [Interpretation 19538] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [Interpretation 19554] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// [Interpretation 19546] The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -170,56 +170,56 @@ class RecipemanagerModelIngredient extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [Interpretation 19563] Check for existing item.
-		// [Interpretation 19565] Modify the form based on Edit State access controls.
-		if ($id != 0 && (!$user->authorise('core.edit.state', 'com_recipemanager.ingredient.' . (int) $id))
-			|| ($id == 0 && !$user->authorise('core.edit.state', 'com_recipemanager')))
+		// [Interpretation 19555] Check for existing item.
+		// [Interpretation 19557] Modify the form based on Edit State access controls.
+		if ($id != 0 && (!$user->authorise('core.edit.state', 'com_recipe_manager.ingredient.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('core.edit.state', 'com_recipe_manager')))
 		{
-			// [Interpretation 19598] Disable fields for display.
+			// [Interpretation 19590] Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [Interpretation 19604] Disable fields while saving.
+			// [Interpretation 19596] Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [Interpretation 19612] If this is a new item insure the greated by is set.
+		// [Interpretation 19604] If this is a new item insure the greated by is set.
 		if (0 == $id)
 		{
-			// [Interpretation 19616] Set the created_by to this user
+			// [Interpretation 19608] Set the created_by to this user
 			$form->setValue('created_by', null, $user->id);
 		}
-		// [Interpretation 19621] Modify the form based on Edit Creaded By access controls.
-		if (!$user->authorise('core.edit.created_by', 'com_recipemanager'))
+		// [Interpretation 19613] Modify the form based on Edit Creaded By access controls.
+		if (!$user->authorise('core.edit.created_by', 'com_recipe_manager'))
 		{
-			// [Interpretation 19648] Disable fields for display.
+			// [Interpretation 19640] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [Interpretation 19652] Disable fields for display.
+			// [Interpretation 19644] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [Interpretation 19656] Disable fields while saving.
+			// [Interpretation 19648] Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [Interpretation 19661] Modify the form based on Edit Creaded Date access controls.
-		if (!$user->authorise('core.edit.created', 'com_recipemanager'))
+		// [Interpretation 19653] Modify the form based on Edit Creaded Date access controls.
+		if (!$user->authorise('core.edit.created', 'com_recipe_manager'))
 		{
-			// [Interpretation 19687] Disable fields for display.
+			// [Interpretation 19679] Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [Interpretation 19691] Disable fields while saving.
+			// [Interpretation 19683] Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
-		// [Interpretation 19769] Only load these values if no id is found
+		// [Interpretation 19761] Only load these values if no id is found
 		if (0 == $id)
 		{
-			// [Interpretation 19773] Set redirected view name
+			// [Interpretation 19765] Set redirected view name
 			$redirectedView = $jinput->get('ref', null, 'STRING');
-			// [Interpretation 19777] Set field name (or fall back to view name)
+			// [Interpretation 19769] Set field name (or fall back to view name)
 			$redirectedField = $jinput->get('field', $redirectedView, 'STRING');
-			// [Interpretation 19781] Set redirected view id
+			// [Interpretation 19773] Set redirected view id
 			$redirectedId = $jinput->get('refid', 0, 'INT');
-			// [Interpretation 19785] Set field id (or fall back to redirected view id)
+			// [Interpretation 19777] Set field id (or fall back to redirected view id)
 			$redirectedValue = $jinput->get('field_id', $redirectedId, 'INT');
 			if (0 != $redirectedValue && $redirectedField)
 			{
-				// [Interpretation 19792] Now set the local-redirected field default value
+				// [Interpretation 19784] Now set the local-redirected field default value
 				$form->setValue($redirectedField, null, $redirectedValue);
 			}
 		}
@@ -233,7 +233,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_recipemanager/models/forms/ingredient.js';
+		return 'administrator/components/com_recipe_manager/models/forms/ingredient.js';
 	}
     
 	/**
@@ -255,8 +255,8 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [Interpretation 20119] The record has been set. Check the record permissions.
-			return $user->authorise('core.delete', 'com_recipemanager.ingredient.' . (int) $record->id);
+			// [Interpretation 20111] The record has been set. Check the record permissions.
+			return $user->authorise('core.delete', 'com_recipe_manager.ingredient.' . (int) $record->id);
 		}
 		return false;
 	}
@@ -277,14 +277,14 @@ class RecipemanagerModelIngredient extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [Interpretation 20244] The record has been set. Check the record permissions.
-			$permission = $user->authorise('core.edit.state', 'com_recipemanager.ingredient.' . (int) $recordId);
+			// [Interpretation 20236] The record has been set. Check the record permissions.
+			$permission = $user->authorise('core.edit.state', 'com_recipe_manager.ingredient.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [Interpretation 20292] In the absense of better information, revert to the component permissions.
+		// [Interpretation 20284] In the absense of better information, revert to the component permissions.
 		return parent::canEditState($record);
 	}
     
@@ -299,9 +299,9 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [Interpretation 19994] Check specific edit permission then general edit permission.
+		// [Interpretation 19986] Check specific edit permission then general edit permission.
 
-		return JFactory::getUser()->authorise('core.edit', 'com_recipemanager.ingredient.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or parent::allowEdit($data, $key);
+		return JFactory::getUser()->authorise('core.edit', 'com_recipe_manager.ingredient.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or parent::allowEdit($data, $key);
 	}
     
 	/**
@@ -342,7 +342,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				$db = JFactory::getDbo();
 				$query = $db->getQuery(true)
 					->select('MAX(ordering)')
-					->from($db->quoteName('#__recipemanager_ingredient'));
+					->from($db->quoteName('#__recipe_manager_ingredient'));
 				$db->setQuery($query);
 				$max = $db->loadResult();
 
@@ -372,13 +372,13 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	protected function loadFormData() 
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_recipemanager.edit.ingredient.data', array());
+		$data = JFactory::getApplication()->getUserState('com_recipe_manager.edit.ingredient.data', array());
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
 			// run the perprocess of the data
-			$this->preprocessData('com_recipemanager.ingredient', $data);
+			$this->preprocessData('com_recipe_manager.ingredient', $data);
 		}
 
 		return $data;
@@ -472,7 +472,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 		$this->tableClassName		= get_class($this->table);
 		$this->contentType		= new JUcmType;
 		$this->type			= $this->contentType->getTypeByTable($this->tableClassName);
-		$this->canDo			= RecipemanagerHelper::getActions('ingredient');
+		$this->canDo			= Recipe_managerHelper::getActions('ingredient');
 		$this->batchSet			= true;
 
 		if (!$this->canDo->get('core.batch'))
@@ -546,11 +546,11 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [Interpretation 9486] Set some needed variables.
+			// [Interpretation 9478] Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->canDo		= RecipemanagerHelper::getActions('ingredient');
+			$this->canDo		= Recipe_managerHelper::getActions('ingredient');
 		}
 
 		if (!$this->canDo->get('core.create') || !$this->canDo->get('core.batch'))
@@ -558,12 +558,12 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			return false;
 		}
 
-		// [Interpretation 9520] get list of unique fields
+		// [Interpretation 9512] get list of unique fields
 		$uniqueFields = $this->getUniqueFields();
-		// [Interpretation 9524] remove move_copy from array
+		// [Interpretation 9516] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [Interpretation 9528] make sure published is set
+		// [Interpretation 9520] make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -574,47 +574,47 @@ class RecipemanagerModelIngredient extends JModelAdmin
 		}
 
 		$newIds = array();
-		// [Interpretation 9582] Parent exists so let's proceed
+		// [Interpretation 9574] Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [Interpretation 9586] Pop the first ID off the stack
+			// [Interpretation 9578] Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [Interpretation 9592] only allow copy if user may edit this item.
+			// [Interpretation 9584] only allow copy if user may edit this item.
 			if (!$this->user->authorise('core.edit', $contexts[$pk]))
 			{
-				// [Interpretation 9612] Not fatal error
+				// [Interpretation 9604] Not fatal error
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 				continue;
 			}
 
-			// [Interpretation 9619] Check that the row actually exists
+			// [Interpretation 9611] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [Interpretation 9626] Fatal error
+					// [Interpretation 9618] Fatal error
 					$this->setError($error);
 					return false;
 				}
 				else
 				{
-					// [Interpretation 9634] Not fatal error
+					// [Interpretation 9626] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [Interpretation 9705] Only for strings
-			if (RecipemanagerHelper::checkString($this->table->name) && !is_numeric($this->table->name))
+			// [Interpretation 9697] Only for strings
+			if (Recipe_managerHelper::checkString($this->table->name) && !is_numeric($this->table->name))
 			{
 				$this->table->name = $this->generateUnique('name',$this->table->name);
 			}
 
-			// [Interpretation 9719] insert all set values
-			if (RecipemanagerHelper::checkArray($values))
+			// [Interpretation 9711] insert all set values
+			if (Recipe_managerHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
@@ -625,8 +625,8 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				}
 			}
 
-			// [Interpretation 9734] update all unique fields
-			if (RecipemanagerHelper::checkArray($uniqueFields))
+			// [Interpretation 9726] update all unique fields
+			if (Recipe_managerHelper::checkArray($uniqueFields))
 			{
 				foreach ($uniqueFields as $uniqueField)
 				{
@@ -634,13 +634,13 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				}
 			}
 
-			// [Interpretation 9747] Reset the ID because we are making a copy
+			// [Interpretation 9739] Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [Interpretation 9751] TODO: Deal with ordering?
-			// [Interpretation 9753] $this->table->ordering = 1;
+			// [Interpretation 9743] TODO: Deal with ordering?
+			// [Interpretation 9745] $this->table->ordering = 1;
 
-			// [Interpretation 9756] Check the row.
+			// [Interpretation 9748] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -653,7 +653,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [Interpretation 9772] Store the row.
+			// [Interpretation 9764] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -661,14 +661,14 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				return false;
 			}
 
-			// [Interpretation 9782] Get the new item ID
+			// [Interpretation 9774] Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [Interpretation 9786] Add the new ID to the array
+			// [Interpretation 9778] Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [Interpretation 9791] Clean the cache
+		// [Interpretation 9783] Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -689,11 +689,11 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [Interpretation 9206] Set some needed variables.
+			// [Interpretation 9198] Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->canDo		= RecipemanagerHelper::getActions('ingredient');
+			$this->canDo		= Recipe_managerHelper::getActions('ingredient');
 		}
 
 		if (!$this->canDo->get('core.edit') && !$this->canDo->get('core.batch'))
@@ -702,15 +702,15 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			return false;
 		}
 
-		// [Interpretation 9243] make sure published only updates if user has the permission.
+		// [Interpretation 9235] make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('core.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [Interpretation 9268] remove move_copy from array
+		// [Interpretation 9260] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [Interpretation 9295] Parent exists so we proceed
+		// [Interpretation 9287] Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('core.edit', $contexts[$pk]))
@@ -719,29 +719,29 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				return false;
 			}
 
-			// [Interpretation 9323] Check that the row actually exists
+			// [Interpretation 9315] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [Interpretation 9330] Fatal error
+					// [Interpretation 9322] Fatal error
 					$this->setError($error);
 					return false;
 				}
 				else
 				{
-					// [Interpretation 9338] Not fatal error
+					// [Interpretation 9330] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [Interpretation 9346] insert all set values.
-			if (RecipemanagerHelper::checkArray($values))
+			// [Interpretation 9338] insert all set values.
+			if (Recipe_managerHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [Interpretation 9353] Do special action for access.
+					// [Interpretation 9345] Do special action for access.
 					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -754,7 +754,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			}
 
 
-			// [Interpretation 9368] Check the row.
+			// [Interpretation 9360] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -767,7 +767,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [Interpretation 9384] Store the row.
+			// [Interpretation 9376] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -776,7 +776,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			}
 		}
 
-		// [Interpretation 9395] Clean the cache
+		// [Interpretation 9387] Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -814,12 +814,12 @@ class RecipemanagerModelIngredient extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [Interpretation 9988] Alter the unique field for save as copy
+		// [Interpretation 9980] Alter the unique field for save as copy
 		if ($input->get('task') === 'save2copy')
 		{
-			// [Interpretation 9993] Automatic handling of other unique fields
+			// [Interpretation 9985] Automatic handling of other unique fields
 			$uniqueFields = $this->getUniqueFields();
-			if (RecipemanagerHelper::checkArray($uniqueFields))
+			if (Recipe_managerHelper::checkArray($uniqueFields))
 			{
 				foreach ($uniqueFields as $uniqueField)
 				{
@@ -870,7 +870,7 @@ class RecipemanagerModelIngredient extends JModelAdmin
 	protected function _generateNewTitle($title)
 	{
 
-		// [Interpretation 10108] Alter the title
+		// [Interpretation 10100] Alter the title
 		$table = $this->getTable();
 
 		while ($table->load(array('title' => $title)))

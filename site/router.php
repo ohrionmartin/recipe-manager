@@ -3,14 +3,14 @@
 				Vast Development Method 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		1.0.0
-	@build			11th December, 2020
+	@version		1.0.2
+	@build			14th December, 2020
 	@created		5th July, 2020
 	@package		Recipe Manager
 	@subpackage		router.php
 	@author			Oh Martin <https://www.vdm.io>	
 	@copyright		Copyright (C) 2020. All Rights Reserved
-	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	@license		GNU General Public License version 2 or later; see LICENSE.txt
   ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
  (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
 .-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
@@ -22,14 +22,14 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Routing class from com_recipemanager
+ * Routing class from com_recipe_manager
  *
  * @since  3.3
  */
-class RecipemanagerRouter extends JComponentRouterBase
+class Recipe_managerRouter extends JComponentRouterBase
 {	
 	/**
-	 * Build the route for the com_recipemanager component
+	 * Build the route for the com_recipe_manager component
 	 *
 	 * @param   array  &$query  An array of URL arguments
 	 *
@@ -42,7 +42,7 @@ class RecipemanagerRouter extends JComponentRouterBase
 		$segments = array();
 
 		// Get a menu item based on Itemid or currently active
-		$params = JComponentHelper::getParams('com_recipemanager');
+		$params = JComponentHelper::getParams('com_recipe_manager');
 		
 		if (empty($query['Itemid']))
 		{
@@ -146,7 +146,7 @@ class RecipemanagerRouter extends JComponentRouterBase
 		return $vars;
 	} 
 
-	protected function getVar($table, $where = null, $whereString = null, $what = null, $category = false, $operator = '=', $main = 'recipemanager')
+	protected function getVar($table, $where = null, $whereString = null, $what = null, $category = false, $operator = '=', $main = 'recipe_manager')
 	{
 		if(!$where || !$what || !$whereString)
 		{
@@ -222,16 +222,16 @@ class RecipemanagerRouter extends JComponentRouterBase
 	}
 }
 
-function RecipemanagerBuildRoute(&$query)
+function Recipe_managerBuildRoute(&$query)
 {
-	$router = new RecipemanagerRouter;
+	$router = new Recipe_managerRouter;
 	
 	return $router->build($query);
 }
 
-function RecipemanagerParseRoute($segments)
+function Recipe_managerParseRoute($segments)
 {
-	$router = new RecipemanagerRouter;
+	$router = new Recipe_managerRouter;
 
 	return $router->parse($segments);
 }
